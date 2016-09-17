@@ -13,6 +13,11 @@ try:
 except ImportError:
     import json
 
+try:
+    import parquet
+except ImportError:
+    parquet = False
+
 
 def grouper(iterable, n, fillvalue=None):
     'Collect data into fixed-length chunks or blocks'
@@ -98,7 +103,6 @@ def cli(ctx, **opts):
 @click.argument('files', type=click.File('rb'), nargs=-1, required=True)
 @click.pass_context
 def _csv(ctx, delimiter, files):
-    info('Generating links')
     lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
     info('Loading into ElasticSearch')
     load(lines, ctx.obj)
@@ -117,6 +121,18 @@ def _json(ctx, files, json_lines):
     else:
         lines = chain(*(json.load(x) for x in files))
     load(lines, ctx.obj)
+
+
+@cli.command(name='parquet')
+@click.argument('files', type=click.File('rb'), nargs=-1, required=True)
+@click.pass_context
+def _parquet(ctx, files):
+    if not parquet:
+        raise SystemExit("parquet module not found, please install manually")
+    lines = chain(*(parquet.DictReader(x) for x in files))
+    info('Loading into ElasticSearch')
+    load(lines, ctx.obj)
+
 
 if __name__ == '__main__':
     cli()

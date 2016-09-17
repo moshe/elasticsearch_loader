@@ -11,7 +11,7 @@ setup(
     install_requires=[
         'elasticsearch',
         'click',
-        'futures',
+        'futures'
     ],
     entry_points={
         'console_scripts': [
