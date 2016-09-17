@@ -50,23 +50,16 @@ def load(lines, config):
                 try:
                     f.result()
                 except Exception as e:
-                    warn('Chunk {i} got exception ({e}) while processing'.format(e=e, i=i))
+                    log('warn', 'Chunk {i} got exception ({e}) while processing'.format(e=e, i=i))
 
 
 def format_msg(msg, sevirity):
     return '{} {} {}'.format(datetime.now(), sevirity.upper(), msg)
 
 
-def info(msg):
-    click.secho(format_msg(msg, 'info'), fg='blue')
-
-
-def warn(msg):
-    click.secho(format_msg(msg, 'warn'), fg='yellow')
-
-
-def error(msg):
-    click.secho(format_msg(msg, 'error'), fg='red')
+def log(sevirity, msg):
+    cmap = {'info': 'blue', 'warn': 'yellow', 'error': 'red'}
+    click.secho(format_msg(msg, sevirity), fg=cmap[sevirity])
 
 
 def json_lines_iter(fle):
@@ -91,9 +84,9 @@ def cli(ctx, **opts):
     if opts['delete']:
         try:
             ctx.obj['es_conn'].indices.delete(opts['index'])
-            info('Index %s deleted' % opts['index'])
+            log('info', 'Index %s deleted' % opts['index'])
         except NotFoundError:
-            info('Skipping index deletion')
+            log('info', 'Skipping index deletion')
     if opts['index_settings_file']:
         ctx.obj['es_conn'].indices.create(index=opts['index'], body=opts['index_settings_file'].read())
 
@@ -104,7 +97,7 @@ def cli(ctx, **opts):
 @click.pass_context
 def _csv(ctx, delimiter, files):
     lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
-    info('Loading into ElasticSearch')
+    log('info', 'Loading into ElasticSearch')
     load(lines, ctx.obj)
 
 
@@ -130,7 +123,7 @@ def _parquet(ctx, files):
     if not parquet:
         raise SystemExit("parquet module not found, please install manually")
     lines = chain(*(parquet.DictReader(x) for x in files))
-    info('Loading into ElasticSearch')
+    log('info', 'Loading into ElasticSearch')
     load(lines, ctx.obj)
 
 
