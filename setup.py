@@ -6,5 +6,10 @@ setup(
     py_modules=['elasticsearch_loader'],
     url='',
     license='',
-    description=''
+    description='',
+    entry_points={
+        'console_scripts': [
+            'elasticsearch_loader = elasticsearch_loader:cli',
+        ]
+    }
 )
