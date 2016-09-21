@@ -12,7 +12,7 @@
 ### Installation
 `
 pip install git+git://github.com/MosheZada/elasticsearch_loader.git@master
-`
+`  
 *In order to add parquet support run `pip install parquet`*
 
 
