@@ -13,6 +13,12 @@ setup(
         'click',
         'futures'
     ],
+    tests_require=[
+        'pytest'
+    ],
+    extras_require={
+        'parquet': ['parquet']
+    },
     entry_points={
         'console_scripts': [
             'elasticsearch_loader = elasticsearch_loader:cli',
