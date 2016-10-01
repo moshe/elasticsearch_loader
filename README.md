@@ -73,5 +73,5 @@ input format can be found under samples
 - [x] parquet support
 - [x] progress bar
 - [ ] DLQ style out file for docs that didn't got in
-- [ ] Python3 support
-- [ ] Flake8 test
+- [x] Python3 support
+- [x] pep8 test

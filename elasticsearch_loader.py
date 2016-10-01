@@ -3,7 +3,12 @@
 from elasticsearch import helpers
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
-from itertools import izip_longest, chain
+
+try:
+    from itertools import izip_longest as zip_longest, chain
+except ImportError:
+    from itertools import zip_longest, chain
+
 from datetime import datetime
 import csv
 import click
@@ -22,7 +27,7 @@ except ImportError:
 def grouper(iterable, n, fillvalue=None):
     'Collect data into fixed-length chunks or blocks'
     args = [iter(iterable)] * n
-    return izip_longest(fillvalue=fillvalue, *args)
+    return zip_longest(fillvalue=fillvalue, *args)
 
 
 def bulk_builder(bulk, config):
