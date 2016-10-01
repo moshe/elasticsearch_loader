@@ -1,13 +1,21 @@
 from setuptools import setup
 
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except Exception:
+    long_description = ''
 
 setup(
-    name='elasticsearch_loader',
-    version='0.1',
+    name='elasticsearch-loader',
+    author='Moshe Zada',
+    version='0.0.2',
     py_modules=['elasticsearch_loader'],
-    url='',
+    keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader'],
+    url='https://github.com/MosheZada/elasticsearch_loader',
     license='',
-    description='',
+    long_description=long_description,
+    description='A pythonic tool for batch loading data files (json, parquet, csv, tsv) into ElasticSearch',
     install_requires=[
         'elasticsearch',
         'click',

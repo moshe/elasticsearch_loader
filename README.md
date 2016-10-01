@@ -11,9 +11,9 @@
 
 ### Installation
 `
-pip install git+git://github.com/MosheZada/elasticsearch_loader.git@master
+pip install elasticsearch-loader
 `  
-*In order to add parquet support run `pip install parquet`*
+*In order to add parquet support run `pip install elasticsearch-loader[parquet]`*
 
 
 ### Usage
