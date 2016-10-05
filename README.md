@@ -1,4 +1,4 @@
-# elasticsearch_loader [![Build Status](https://travis-ci.org/MosheZada/elasticsearch_loader.svg?branch=master)](https://travis-ci.org/MosheZada/elasticsearch_loader) [![Can I Use Python 3?](https://caniusepython3.com/project/elasticsearch-loader.svg)](https://caniusepython3.com/project/elasticsearch-loader)
+# elasticsearch_loader [![Build Status](https://travis-ci.org/Moshe/elasticsearch_loader.svg?branch=master)](https://travis-ci.org/Moshe/elasticsearch_loader) [![Can I Use Python 3?](https://caniusepython3.com/project/elasticsearch-loader.svg)](https://caniusepython3.com/project/elasticsearch-loader)
 
 ### Main features:
 * Batch upload CSV (actually any *SV) files to Elasticsearch
