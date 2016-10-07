@@ -12,7 +12,7 @@ setup(
     version='0.0.3',
     py_modules=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader'],
-    url='https://github.com/MosheZada/elasticsearch_loader',
+    url='https://github.com/Moshe/elasticsearch_loader',
     license='',
     long_description=long_description,
     description='A pythonic tool for batch loading data files (json, parquet, csv, tsv) into ElasticSearch',
