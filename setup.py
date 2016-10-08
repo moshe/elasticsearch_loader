@@ -9,7 +9,7 @@ except Exception:
 setup(
     name='elasticsearch-loader',
     author='Moshe Zada',
-    version='0.0.4',
+    version='0.1.0',
     py_modules=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader'],
     url='https://github.com/Moshe/elasticsearch_loader',
@@ -19,6 +19,7 @@ setup(
     install_requires=[
         'elasticsearch',
         'click',
+        'click-stream',
         'futures'
     ],
     tests_require=[

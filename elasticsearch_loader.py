@@ -4,6 +4,7 @@ from elasticsearch import helpers
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
 from pkg_resources import iter_entry_points
+from click_stream import Stream
 
 
 try:
@@ -99,17 +100,17 @@ def cli(ctx, **opts):
 
 
 @cli.command(name='csv')
+@click.argument('files', type=Stream(file_mode='rb'), nargs=-1, required=True)
 @click.option('--delimiter', default=',', type=str, help='Default ,')
-@click.argument('files', type=click.File('rb'), nargs=-1, required=True)
 @click.pass_context
-def _csv(ctx, delimiter, files):
+def _csv(ctx, files, delimiter):
     lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
     log('info', 'Loading into ElasticSearch')
     load(lines, ctx.obj)
 
 
 @cli.command(name='json')
-@click.argument('files', type=click.File('rb'), nargs=-1, required=True)
+@click.argument('files', type=Stream(file_mode='rb'), nargs=-1, required=True)
 @click.option('--json-lines', default=False, is_flag=True, help='Files formated as json lines')
 @click.pass_context
 def _json(ctx, files, json_lines):
@@ -124,7 +125,7 @@ def _json(ctx, files, json_lines):
 
 
 @cli.command(name='parquet')
-@click.argument('files', type=click.File('rb'), nargs=-1, required=True)
+@click.argument('files', type=Stream(file_mode='rb'), nargs=-1, required=True)
 @click.pass_context
 def _parquet(ctx, files):
     if not parquet:

@@ -3,3 +3,4 @@ pytest
 click
 futures
 mock
+click-stream

@@ -7,6 +7,7 @@
 * Pre defining custom mappings
 * Delete index before upload
 * Index documents with _id from the document itself
+* Load data directly from url
 * And more
 
 ### Installation
@@ -52,6 +53,12 @@ Commands:
 
 #### Load 2 parquet files
 `elasticsearch_loader --index incidents --type incident parquet file1.parquet file2.parquet`
+
+#### Load CSV from github repo (actually any http/https is ok)
+`elasticsearch_loader --index data --type avg_height --id-field country json https://raw.githubusercontent.com/samayo/country-data/master/src/country-avg-male-height.json`
+
+#### Load data from stdin
+`generate_data | elasticsearch_loader --index data --type incident csv -`
 
 #### Read _id from incident_id field
 `elasticsearch_loader --id-field incident_id --index incidents --type incident csv file1.csv file2.csv`
