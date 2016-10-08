@@ -78,7 +78,7 @@ def json_lines_iter(fle):
 @click.option('--bulk-size', default=500, help='How many docs to collect before writing to ElasticSearch')
 @click.option('--concurrency', default=10, help='How much worker threads to start')
 @click.option('--es-host', default='http://localhost:9200', help='Elasticsearch cluster entry point. eg. http://localhost:9200')
-@click.option('--consistency', default='one', help='Consistency level passed to bulk api')
+@click.option('--consistency', type=click.Choice(['one', 'quorum', 'all']), default='one', help='Consistency level passed to bulk api')
 @click.option('--index', help='Destination index name', required=True)
 @click.option('--delete', default=False, is_flag=True, help='Delete index before import?')
 @click.option('--type', help='Docs type', required=True)
