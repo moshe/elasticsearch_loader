@@ -3,6 +3,8 @@
 from elasticsearch import helpers
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
+from pkg_resources import iter_entry_points
+
 
 try:
     from itertools import izip_longest as zip_longest, chain
@@ -132,5 +134,11 @@ def _parquet(ctx, files):
     load(lines, ctx.obj)
 
 
+def load_plugins():
+    for plugin in iter_entry_points(group='esl.plugins'):
+        log('info', 'loading %s' % plugin.module_name)
+        plugin.resolve()(cli)
+
 if __name__ == '__main__':
+    load_plugins()
     cli()
