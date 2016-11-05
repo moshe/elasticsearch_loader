@@ -8,6 +8,7 @@
 * Delete index before upload
 * Index documents with _id from the document itself
 * Load data directly from url
+* Supports ES 1.X, 2.X and 5.X
 * And more
 
 ### Installation
@@ -28,7 +29,6 @@ Options:
   --concurrency INTEGER           How much worker threads to start
   --es-host TEXT                  Elasticsearch cluster entry point. eg.
                                   http://localhost:9200
-  --consistency TEXT              Consistency level passed to bulk api
   --index TEXT                    Destination index name  [required]
   --delete                        Delete index before import?
   --type TEXT                     Docs type  [required]
