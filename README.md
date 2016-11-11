@@ -48,11 +48,14 @@ Commands:
 #### Load 2 CSV files
 `elasticsearch_loader --index incidents --type incident csv file1.csv file2.csv`
 
-#### Load 2 JSON lines files
-`elasticsearch_loader --index incidents --type incident json --json-lines file1.json.lines file2.json.lines`
+#### Load JSON files
+`elasticsearch_loader --index incidents --type incident json *.json`
 
-#### Load 2 parquet files
-`elasticsearch_loader --index incidents --type incident parquet file1.parquet file2.parquet`
+#### Load all git commits into elasticsearch
+`git log  --pretty=format:'{"sha":"%H","author_name":"%aN", "author_email": "%aE","date":"%ad","message":"%f"}' | elasticsearch_loader --type git --index git json --json-lines -`
+
+#### Load parquet file
+`elasticsearch_loader --index incidents --type incident parquet file1.parquet`
 
 #### Load CSV from github repo (actually any http/https is ok)
 `elasticsearch_loader --index data --type avg_height --id-field country json https://raw.githubusercontent.com/samayo/country-data/master/src/country-avg-male-height.json`
