@@ -30,7 +30,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'elasticsearch_loader = elasticsearch_loader:cli',
+            'elasticsearch_loader = elasticsearch_loader:main',
         ]
     }
 )

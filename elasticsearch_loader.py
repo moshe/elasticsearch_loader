@@ -5,8 +5,6 @@ from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
 from pkg_resources import iter_entry_points
 from click_stream import Stream
-
-
 try:
     from itertools import izip_longest as zip_longest, chain
 except ImportError:
@@ -139,6 +137,11 @@ def load_plugins():
         log('info', 'loading %s' % plugin.module_name)
         plugin.resolve()(cli)
 
-if __name__ == '__main__':
+
+def main():
     load_plugins()
     cli()
+
+
+if __name__ == '__main__':
+    main()
