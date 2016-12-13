@@ -45,16 +45,19 @@ Commands:
 ```
 
 ### Examples
-#### Load 2 CSV files
+#### Load CSV to elasticsearch
 `elasticsearch_loader --index incidents --type incident csv file1.csv file2.csv`
 
-#### Load JSON files
+#### Load 2 CSV to elasticsearch
+`elasticsearch_loader --index incidents --type incident csv file1.csv file2.csv`
+
+#### Load JSON to elasticsearch
 `elasticsearch_loader --index incidents --type incident json *.json`
 
 #### Load all git commits into elasticsearch
 `git log  --pretty=format:'{"sha":"%H","author_name":"%aN", "author_email": "%aE","date":"%ad","message":"%f"}' | elasticsearch_loader --type git --index git json --json-lines -`
 
-#### Load parquet file
+#### Load parquet to elasticsearch
 `elasticsearch_loader --index incidents --type incident parquet file1.parquet`
 
 #### Load CSV from github repo (actually any http/https is ok)
