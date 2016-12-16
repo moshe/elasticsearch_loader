@@ -10,7 +10,6 @@ setup(
     name='elasticsearch-loader',
     author='Moshe Zada',
     version='0.1.8',
-    # py_modules=['elasticsearch_loader'],
     packages=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader'],
     url='https://github.com/Moshe/elasticsearch_loader',
