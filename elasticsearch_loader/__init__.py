@@ -5,40 +5,14 @@ from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
 from pkg_resources import iter_entry_points
 from click_stream import Stream
-try:
-    from itertools import izip_longest as zip_longest, chain
-except ImportError:
-    from itertools import zip_longest, chain
-
+from itertools import chain
 from datetime import datetime
 import csv
 import click
 import concurrent.futures as futures
-try:
-    import ujson as json
-except ImportError:
-    import json
 
-try:
-    import parquet
-except ImportError:
-    parquet = False
-
-
-def grouper(iterable, n, fillvalue=None):
-    'Collect data into fixed-length chunks or blocks'
-    args = [iter(iterable)] * n
-    return zip_longest(fillvalue=fillvalue, *args)
-
-
-def bulk_builder(bulk, config):
-    for item in filter(None, bulk):
-        body = {'_index': config['index'],
-                '_type': config['type'],
-                '_source': item}
-        if config['id_field']:
-            body['_id'] = item[config['id_field']]
-        yield body
+from .parsers import json, parquet
+from .iter import grouper, bulk_builder, json_lines_iter
 
 
 def single_bulk_to_es(bulk, config, es_conn):
@@ -66,11 +40,6 @@ def format_msg(msg, sevirity):
 def log(sevirity, msg):
     cmap = {'info': 'blue', 'warn': 'yellow', 'error': 'red'}
     click.secho(format_msg(msg, sevirity), fg=cmap[sevirity])
-
-
-def json_lines_iter(fle):
-    for line in fle:
-        yield json.loads(line)
 
 
 @click.group()
