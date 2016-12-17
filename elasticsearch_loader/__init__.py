@@ -5,6 +5,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
 from pkg_resources import iter_entry_points
 from click_stream import Stream
+from click_conf import conf
 from itertools import chain
 from datetime import datetime
 import csv
@@ -42,7 +43,8 @@ def log(sevirity, msg):
     click.secho(format_msg(msg, sevirity), fg=cmap[sevirity])
 
 
-@click.group()
+@click.group(invoke_without_command=True, context_settings={"help_option_names": ['-h', '--help']})
+@conf(default='esl.yml')
 @click.option('--bulk-size', default=500, help='How many docs to collect before writing to ElasticSearch')
 @click.option('--concurrency', default=10, help='How much worker threads to start')
 @click.option('--es-host', default='http://localhost:9200', help='Elasticsearch cluster entry point. eg. http://localhost:9200')
@@ -63,6 +65,21 @@ def cli(ctx, **opts):
             log('info', 'Skipping index deletion')
     if opts['index_settings_file']:
         ctx.obj['es_conn'].indices.create(index=opts['index'], body=opts['index_settings_file'].read())
+    if ctx.invoked_subcommand is None:
+        commands = cli.commands.keys()
+        if ctx.default_map:
+            default_command = ctx.default_map.get('default_command')
+            if default_command:
+                command = cli.get_command(ctx, default_command)
+                if command:
+                    ctx.invoke(command, **ctx.default_map[default_command]['arguments'])
+                    return
+                else:
+                    ctx.fail('Cannot find default_command: {},\navailable commands are: {}'.format(default_command, ", ".join(commands)))
+            else:
+                ctx.fail('No subcommand specified via command line / task file,\navailable commands are: {}'.format(", ".join(commands)))
+        else:
+            ctx.fail('No subcommand specified via command line / task file,\navailable commands are: {}'.format(", ".join(commands)))
 
 
 @cli.command(name='csv')
@@ -75,14 +92,11 @@ def _csv(ctx, files, delimiter):
     load(lines, ctx.obj)
 
 
-@cli.command(name='json')
+@cli.command(name='json', short_help='FILES with the format of [{"a": "1"}, {"b": "2"}]')
 @click.argument('files', type=Stream(file_mode='rb'), nargs=-1, required=True)
 @click.option('--json-lines', default=False, is_flag=True, help='Files formated as json lines')
 @click.pass_context
 def _json(ctx, files, json_lines):
-    """
-    FILES with the format of [{"a": "1"}, {"b": "2"}]
-    """
     if json_lines:
         lines = chain(*(json_lines_iter(x) for x in files))
     else:

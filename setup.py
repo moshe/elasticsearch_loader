@@ -23,7 +23,8 @@ setup(
         'futures'
     ],
     tests_require=[
-        'pytest'
+        'pytest',
+        'mock'
     ],
     extras_require={
         'parquet': ['parquet']
