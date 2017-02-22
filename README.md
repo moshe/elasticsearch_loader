@@ -24,14 +24,25 @@ pip install elasticsearch-loader
 Usage: elasticsearch_loader [OPTIONS] COMMAND [ARGS]...
 
 Options:
-  --bulk-size INTEGER             How many docs to collect before writing to ElasticSearch (default 500)
-  --concurrency INTEGER           How much worker threads to start (default 10)
-  --es-host TEXT                  Elasticsearch cluster entry point. (default http://localhost:9200)
+  --bulk-size INTEGER             How many docs to collect before writing to
+                                  ElasticSearch (default 500)
+  --concurrency INTEGER           How much worker threads to start (default
+                                  10)
+  --es-host TEXT                  Elasticsearch cluster entry point. (default
+                                  http://localhost:9200)
+  --verify-certs                  Make sure we verify SSL certificates
+                                  (default false)
+  --use-ssl                       Turn on SSL (default false)
+  --ca-certs TEXT                 Provide a path to CA certs on disk
+  --http-auth TEXT                Provide username and password for basic auth
+                                  in the format of username:password
   --index TEXT                    Destination index name  [required]
   --delete                        Delete index before import? (default false)
   --type TEXT                     Docs type  [required]
-  --id-field TEXT                 Specify field name that be used as document id
-  --index-settings-file FILENAME  Specify path to json file containing index mapping and settings
+  --id-field TEXT                 Specify field name that be used as document
+                                  id
+  --index-settings-file FILENAME  Specify path to json file containing index
+                                  mapping and settings
   --help                          Show this message and exit.
 
 Commands:
