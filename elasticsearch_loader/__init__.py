@@ -43,11 +43,11 @@ def log(sevirity, msg):
 
 
 @click.group()
-@click.option('--bulk-size', default=500, help='How many docs to collect before writing to ElasticSearch')
-@click.option('--concurrency', default=10, help='How much worker threads to start')
-@click.option('--es-host', default='http://localhost:9200', help='Elasticsearch cluster entry point. eg. http://localhost:9200')
+@click.option('--bulk-size', default=500, help='How many docs to collect before writing to ElasticSearch (default 500)')
+@click.option('--concurrency', default=10, help='How much worker threads to start (default 10)')
+@click.option('--es-host', default='http://localhost:9200', help='Elasticsearch cluster entry point. (default http://localhost:9200)')
 @click.option('--index', help='Destination index name', required=True)
-@click.option('--delete', default=False, is_flag=True, help='Delete index before import?')
+@click.option('--delete', default=False, is_flag=True, help='Delete index before import? (default false)')
 @click.option('--type', help='Docs type', required=True)
 @click.option('--id-field', help='Specify field name that be used as document id')
 @click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings')
