@@ -25,12 +25,19 @@ Usage: elasticsearch_loader [OPTIONS] COMMAND [ARGS]...
 
 Options:
   --bulk-size INTEGER             How many docs to collect before writing to
-                                  ElasticSearch
-  --concurrency INTEGER           How much worker threads to start
-  --es-host TEXT                  Elasticsearch cluster entry point. eg.
-                                  http://localhost:9200
+                                  ElasticSearch (default 500)
+  --concurrency INTEGER           How much worker threads to start (default
+                                  10)
+  --es-host TEXT                  Elasticsearch cluster entry point. (default
+                                  http://localhost:9200)
+  --verify-certs                  Make sure we verify SSL certificates
+                                  (default false)
+  --use-ssl                       Turn on SSL (default false)
+  --ca-certs TEXT                 Provide a path to CA certs on disk
+  --http-auth TEXT                Provide username and password for basic auth
+                                  in the format of username:password
   --index TEXT                    Destination index name  [required]
-  --delete                        Delete index before import?
+  --delete                        Delete index before import? (default false)
   --type TEXT                     Docs type  [required]
   --id-field TEXT                 Specify field name that be used as document
                                   id
@@ -40,7 +47,7 @@ Options:
 
 Commands:
   csv
-  json     FILES with the format of [{"a": "1"}, {"b":...
+  json       FILES with the format of [{"a": "1"}, {"b":...
   parquet
 ```
 
