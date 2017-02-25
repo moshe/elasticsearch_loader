@@ -9,7 +9,7 @@
 * Index documents with _id from the document itself
 * Load data directly from url
 * Supports ES 1.X, 2.X and 5.X
-* And more
+* SSL and basic auth
 
 ### Installation
 `
@@ -53,13 +53,10 @@ Commands:
 ```
 
 ### Examples
-#### Load CSV to elasticsearch
-`elasticsearch_loader --index incidents --type incident csv file1.csv file2.csv`
-
 #### Load 2 CSV to elasticsearch
 `elasticsearch_loader --index incidents --type incident csv file1.csv file2.csv`
 
-#### Load JSON to elasticsearch
+#### Load JSONs to elasticsearch
 `elasticsearch_loader --index incidents --type incident json *.json`
 
 #### Load all git commits into elasticsearch
@@ -77,9 +74,6 @@ Commands:
 #### Read _id from incident_id field
 `elasticsearch_loader --id-field incident_id --index incidents --type incident csv file1.csv file2.csv`
 
-#### Change bulk size
-`elasticsearch_loader --bulk-size 300 --index incidents --type incident csv file1.csv file2.csv`
-
 #### Change index concurrency
 `elasticsearch_loader --concurrency 20 --index incidents --type incident csv file1.csv file2.csv`
 
@@ -89,10 +83,3 @@ Commands:
 ### Tests and sample data
 Tests are located under test and can run by runnig `tox`
 input format can be found under samples
-
-### TODO
-- [x] parquet support
-- [x] progress bar
-- [ ] DLQ style out file for docs that didn't got in
-- [x] Python3 support
-- [x] pep8 test

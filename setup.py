@@ -9,7 +9,7 @@ except Exception:
 setup(
     name='elasticsearch-loader',
     author='Moshe Zada',
-    version='0.2.0',
+    version='0.2.1',
     packages=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader'],
     url='https://github.com/Moshe/elasticsearch_loader',
