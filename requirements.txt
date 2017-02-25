@@ -2,4 +2,4 @@ elasticsearch
 click
 futures
 click-stream
-git+git://github.com/moshe/click-conf.git#egg=click-conf
+click-conf
