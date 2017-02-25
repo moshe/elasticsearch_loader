@@ -24,6 +24,7 @@ pip install elasticsearch-loader
 Usage: elasticsearch_loader [OPTIONS] COMMAND [ARGS]...
 
 Options:
+  -c, --config-file TEXT          Load default configuration file from esl.yml
   --bulk-size INTEGER             How many docs to collect before writing to
                                   ElasticSearch (default 500)
   --concurrency INTEGER           How much worker threads to start (default
