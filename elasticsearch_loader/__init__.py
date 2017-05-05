@@ -10,28 +10,26 @@ from itertools import chain
 from datetime import datetime
 import csv
 import click
-import concurrent.futures as futures
 
 from .parsers import json, parquet
 from .iter import grouper, bulk_builder, json_lines_iter
 
 
-def single_bulk_to_es(bulk, config, es_conn):
+def single_bulk_to_es(bulk, config):
     bulk = bulk_builder(bulk, config)
-    helpers.bulk(es_conn, bulk)
+    helpers.bulk(config['es_conn'], bulk, chunk_size=config['bulk_size'])
 
 
 def load(lines, config):
-    # FIXME: Get rid of the list comprehension (done for better progress bar duration)
-    chunks = [x for x in grouper(lines, config['bulk_size'])]
-    with futures.ThreadPoolExecutor(config['concurrency']) as executor:
-        future_map = (executor.submit(single_bulk_to_es, chunk, config, config['es_conn']) for chunk in chunks)
-        with click.progressbar(futures.as_completed(future_map), label='Uploading', length=len(chunks)) as pbar:
-            for i, f in enumerate(pbar):
-                try:
-                    f.result()
-                except Exception as e:
-                    log('warn', 'Chunk {i} got exception ({e}) while processing'.format(e=e, i=i))
+    bulks = grouper(lines, config['bulk_size'] * 3)
+    if config['progress']:
+        bulks = [x for x in bulks]
+    with click.progressbar(bulks) as pbar:
+        for i, bulk in enumerate(pbar):
+            try:
+                single_bulk_to_es(bulk, config)
+            except Exception as e:
+                log('warn', 'Chunk {i} got exception ({e}) while processing'.format(e=e, i=i))
 
 
 def format_msg(msg, sevirity):
@@ -46,7 +44,6 @@ def log(sevirity, msg):
 @click.group(invoke_without_command=True, context_settings={"help_option_names": ['-h', '--help']})
 @conf(default='esl.yml')
 @click.option('--bulk-size', default=500, help='How many docs to collect before writing to ElasticSearch (default 500)')
-@click.option('--concurrency', default=10, help='How much worker threads to start (default 10)')
 @click.option('--es-host', default='http://localhost:9200', help='Elasticsearch cluster entry point. (default http://localhost:9200)')
 @click.option('--verify-certs', default=False, is_flag=True, help='Make sure we verify SSL certificates (default false)')
 @click.option('--use-ssl', default=False, is_flag=True, help='Turn on SSL (default false)')
@@ -54,9 +51,10 @@ def log(sevirity, msg):
 @click.option('--http-auth', help='Provide username and password for basic auth in the format of username:password')
 @click.option('--index', help='Destination index name', required=True)
 @click.option('--delete', default=False, is_flag=True, help='Delete index before import? (default false)')
+@click.option('--progress', default=False, is_flag=True, help='Enable progress bar - NOTICE: in order to show progress the entire input should be collected and can consume more memory than without progress bar')
 @click.option('--type', help='Docs type', required=True)
 @click.option('--id-field', help='Specify field name that be used as document id')
-@click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings')
+@click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings, creates index if missing')
 @click.pass_context
 def cli(ctx, **opts):
     ctx.obj = opts
@@ -69,7 +67,10 @@ def cli(ctx, **opts):
         except NotFoundError:
             log('info', 'Skipping index deletion')
     if opts['index_settings_file']:
-        ctx.obj['es_conn'].indices.create(index=opts['index'], body=opts['index_settings_file'].read())
+        if ctx.obj['es_conn'].indices.exists(index=opts['index']):
+            ctx.obj['es_conn'].indices.put_settings(index=opts['index'], body=opts['index_settings_file'].read())
+        else:
+            ctx.obj['es_conn'].indices.create(index=opts['index'], body=opts['index_settings_file'].read())
     if ctx.invoked_subcommand is None:
         commands = cli.commands.keys()
         if ctx.default_map:
