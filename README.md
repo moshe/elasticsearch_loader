@@ -27,8 +27,6 @@ Options:
   -c, --config-file TEXT          Load default configuration file from esl.yml
   --bulk-size INTEGER             How many docs to collect before writing to
                                   ElasticSearch (default 500)
-  --concurrency INTEGER           How much worker threads to start (default
-                                  10)
   --es-host TEXT                  Elasticsearch cluster entry point. (default
                                   http://localhost:9200)
   --verify-certs                  Make sure we verify SSL certificates
@@ -39,16 +37,21 @@ Options:
                                   in the format of username:password
   --index TEXT                    Destination index name  [required]
   --delete                        Delete index before import? (default false)
+  --progress                      Enable progress bar - NOTICE: in order to
+                                  show progress the entire input should be
+                                  collected and can consume more memory than
+                                  without progress bar
   --type TEXT                     Docs type  [required]
   --id-field TEXT                 Specify field name that be used as document
                                   id
   --index-settings-file FILENAME  Specify path to json file containing index
-                                  mapping and settings
-  --help                          Show this message and exit.
+                                  mapping and settings, creates index if
+                                  missing
+  -h, --help                      Show this message and exit.
 
 Commands:
   csv
-  json       FILES with the format of [{"a": "1"}, {"b":...
+  json       FILES with the format of [{"a": "1"}, {"b": "2"}]
   parquet
 ```
 
@@ -73,9 +76,6 @@ Commands:
 
 #### Read _id from incident_id field
 `elasticsearch_loader --id-field incident_id --index incidents --type incident csv file1.csv file2.csv`
-
-#### Change index concurrency
-`elasticsearch_loader --concurrency 20 --index incidents --type incident csv file1.csv file2.csv`
 
 #### Load custom mappings
 `elasticsearch_loader --index-settings-file samples/mappings.json --index incidents --type incident csv file1.csv file2.csv`
