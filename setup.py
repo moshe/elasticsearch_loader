@@ -19,6 +19,7 @@ setup(
     install_requires=[
         'elasticsearch',
         'click',
+        'click-conf',
         'click-stream==0.0.4',
         'futures'
     ],
