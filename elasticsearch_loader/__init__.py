@@ -8,7 +8,8 @@ from click_stream import Stream
 from click_conf import conf
 from itertools import chain
 from datetime import datetime
-import csv
+#import csv
+import unicodecsv as csv
 import click
 
 from .parsers import json, parquet
@@ -93,7 +94,7 @@ def cli(ctx, **opts):
 @click.option('--delimiter', default=',', type=str, help='Default ,')
 @click.pass_context
 def _csv(ctx, files, delimiter):
-    lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
+    lines = chain(*(csv.DictReader(x, encoding='utf-8', delimiter=str(delimiter)) for x in files))
     log('info', 'Loading into ElasticSearch')
     load(lines, ctx.obj)
 

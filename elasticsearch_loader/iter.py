@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 try:
     from itertools import izip_longest as zip_longest
 except ImportError:
