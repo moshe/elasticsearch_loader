@@ -54,6 +54,7 @@ def log(sevirity, msg):
 @click.option('--progress', default=False, is_flag=True, help='Enable progress bar - NOTICE: in order to show progress the entire input should be collected and can consume more memory than without progress bar')
 @click.option('--type', help='Docs type', required=True)
 @click.option('--id-field', help='Specify field name that be used as document id')
+@click.option('--as-child', default=False, is_flag=True, help='Insert _parent, _routing field, the value is same as _id')
 @click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings, creates index if missing')
 @click.pass_context
 def cli(ctx, **opts):
