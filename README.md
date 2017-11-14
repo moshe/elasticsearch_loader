@@ -47,6 +47,7 @@ Options:
   --as-child                      Insert _parent, _routing field, the value is 
                                   same as _id. Note: must specify --id-field
                                   explicitly
+  --with-retry                    Retry if ES bulk insertion failed
   --index-settings-file FILENAME  Specify path to json file containing index
                                   mapping and settings, creates index if
                                   missing
