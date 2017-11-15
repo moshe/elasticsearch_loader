@@ -17,8 +17,14 @@ def bulk_builder(bulk, config):
         body = {'_index': config['index'],
                 '_type': config['type'],
                 '_source': item}
+                
         if config['id_field']:
             body['_id'] = item[config['id_field']]
+            
+            if config['as_child']:
+                body['_parent'] = body['_id']
+                body['_routing'] = body['_id']
+            
         yield body
 
 
