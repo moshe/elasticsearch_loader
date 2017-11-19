@@ -1,5 +1,11 @@
 language: python
 install:
   - pip install tox
+matrix:
+  include:
+    - PYTHON_VERSION=python:3.6-alpine3.6 ES_VERSION=elasticsearch:5
+    - PYTHON_VERSION=python:3.6-alpine3.6 ES_VERSION=elasticsearch:2.4.6-alpine
+    - PYTHON_VERSION=python:2.7-alpine3.6 ES_VERSION=elasticsearch:5
+    - PYTHON_VERSION=python:2.7-alpine3.6 ES_VERSION=elasticsearch:2.4.6-alpine
 script:
-  - tox
+  - docker-compose up --build --abort-on-container-exit
