@@ -16,7 +16,7 @@ services:
   elasticsearch:
     logging:
       driver: none
-      image: ${ES_VERSION}
+    image: ${ES_VERSION}
     healthcheck:
       test: ["CMD", "wget", "http://localhost:9200", "-O-"]
       interval: 1s
