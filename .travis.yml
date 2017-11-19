@@ -1,10 +1,13 @@
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 language: python
 env:
   global:
-    - ES_VERSION=elasticsearch:5
+    - ES_VERSIONII=elasticsearch:5
   matrix:
-    - PYTHON_VERSION=python:3.6-alpine3.6
-    - PYTHON_VERSION=python:2.7-alpine3.6
+    - PYTHON_VERSION=python:3.6-alpine3.6 ES_VERSION=elasticsearch:5
+    - PYTHON_VERSION=python:2.7-alpine3.6 ES_VERSION=elasticsearch:5
 script:
   - docker-compose --version
   - docker-compose up --build --abort-on-container-exit
