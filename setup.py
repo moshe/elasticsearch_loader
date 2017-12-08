@@ -8,8 +8,8 @@ except Exception:
 
 setup(
     name='elasticsearch-loader',
-    author='Moshe Zada (modified by Alex Zhu)',
-    version='0.2.5',
+    author='Moshe Zada',
+    version='0.2.2',
     packages=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader'],
     url='https://github.com/Moshe/elasticsearch_loader',
