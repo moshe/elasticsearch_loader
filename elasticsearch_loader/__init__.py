@@ -75,6 +75,7 @@ def log(sevirity, msg):
 @click.option('--http-auth', help='Provide username and password for basic auth in the format of username:password')
 @click.option('--index', help='Destination index name', required=True)
 @click.option('--delete', default=False, is_flag=True, help='Delete index before import? (default false)')
+@click.option('--update', default=False, is_flag=True, help='Merge and update existing doc instead of overwrite')
 @click.option('--progress', default=False, is_flag=True, help='Enable progress bar - NOTICE: in order to show progress the entire input should be collected and can consume more memory than without progress bar')
 @click.option('--type', help='Docs type', required=True)
 @click.option('--id-field', help='Specify field name that be used as document id')
