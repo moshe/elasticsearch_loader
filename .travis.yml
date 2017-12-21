@@ -1,5 +1,13 @@
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 language: python
-install:
-  - pip install tox
+env:
+  matrix:
+    - PYTHON_VERSION=python:3.6-alpine3.6 ES_VERSION=elasticsearch:5
+    - PYTHON_VERSION=python:3.6-alpine3.6 ES_VERSION=elasticsearch:2.4.6-alpine
+    - PYTHON_VERSION=python:2.7-alpine3.6 ES_VERSION=elasticsearch:5
+    - PYTHON_VERSION=python:2.7-alpine3.6 ES_VERSION=elasticsearch:2.4.6-alpine
 script:
-  - tox
+  - docker-compose --version
+  - docker-compose up --build --abort-on-container-exit
