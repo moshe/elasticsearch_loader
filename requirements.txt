@@ -1,5 +1,4 @@
 elasticsearch
 click
-futures
 click-stream
 click-conf

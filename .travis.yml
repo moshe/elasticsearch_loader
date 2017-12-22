@@ -4,6 +4,8 @@ before_install:
 language: python
 env:
   matrix:
+    - PYTHON_VERSION=python:3.6-alpine3.6 ES_VERSION=docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.1
+    - PYTHON_VERSION=python:2.7-alpine3.6 ES_VERSION=docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.1
     - PYTHON_VERSION=python:3.6-alpine3.6 ES_VERSION=elasticsearch:5
     - PYTHON_VERSION=python:3.6-alpine3.6 ES_VERSION=elasticsearch:2.4.6-alpine
     - PYTHON_VERSION=python:2.7-alpine3.6 ES_VERSION=elasticsearch:5
