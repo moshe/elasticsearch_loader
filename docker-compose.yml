@@ -1,24 +1,24 @@
 version: '2.1'
 services:
-  loader:
-    environment:
-      - ES_HOST=elasticsearch
-    command: py.test /app
-    build:
-      context: .
-      args:
-        python: ${PYTHON_VERSION}
-    links:
-      - elasticsearch
-    depends_on:
-      elasticsearch:
-        condition: service_healthy
+  #   loader:
+  #     environment:
+  #       - ES_HOST=elasticsearch
+  #     command: py.test /app
+  #     build:
+  #       context: .
+  #       args:
+  #         python: ${PYTHON_VERSION}
+  #     links:
+  #       - elasticsearch
+  #     depends_on:
+  #       elasticsearch:
+  #         condition: service_healthy
   elasticsearch:
-    logging:
-      driver: none
+    # logging:
+    #   driver: none
     image: ${ES_VERSION}
-    healthcheck:
-      test: ["CMD", "wget", "http://localhost:9200", "-O-"]
-      interval: 1s
-      timeout: 1s
-      retries: 120
+    #     healthcheck:
+    #       test: ["CMD", "wget", "http://localhost:9200", "-O-"]
+    #       interval: 1s
+    #       timeout: 1s
+    #       retries: 120
