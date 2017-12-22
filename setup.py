@@ -20,7 +20,7 @@ setup(
         'elasticsearch',
         'click==6.7',
         'click-stream==0.0.6',
-        'futures'
+        'futures',
         'unicodecsv'
     ],
     tests_require=[
