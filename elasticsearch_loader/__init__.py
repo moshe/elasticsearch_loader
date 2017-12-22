@@ -22,26 +22,25 @@ def single_bulk_to_es(bulk, config, attempt_retry):
     max_attempt = 1
     if attempt_retry:
         max_attempt += 3
-    
-    for attempt in range(1, max_attempt+1):
+
+    for attempt in range(1, max_attempt + 1):
         try:
             helpers.bulk(config['es_conn'], bulk, chunk_size=config['bulk_size'])
         except Exception as e:
             if attempt < max_attempt:
-                wait_seconds = attempt*3
-                log('warn', 'attempt [%s/%s] got exception, will retry after %s seconds' % (attempt,max_attempt,wait_seconds) )
+                wait_seconds = attempt * 3
+                log('warn', 'attempt [%s/%s] got exception, will retry after %s seconds' % (attempt, max_attempt, wait_seconds))
                 time.sleep(wait_seconds)
                 continue
 
-            log('error', 'attempt [%s/%s] got exception, it is a permanent data loss, no retry any more' % (attempt,max_attempt) )
+            log('error', 'attempt [%s/%s] got exception, it is a permanent data loss, no retry any more' % (attempt, max_attempt))
             raise e
 
         if attempt > 1:
-            log('info', 'attempt [%s/%s] succeed. we just get recovered from previous error' % (attempt,max_attempt) )
+            log('info', 'attempt [%s/%s] succeed. we just get recovered from previous error' % (attempt, max_attempt))
 
         # completed succesfully
         break
-
 
 
 def load(lines, config):
@@ -154,12 +153,14 @@ def load_plugins():
         log('info', 'loading %s' % plugin.module_name)
         plugin.resolve()(cli)
 
+
 def main():
     load_plugins()
     cli()
 
+
 def dict_convert_binary_to_string(m):
-    for k,v in m.items():
+    for k, v in m.items():
         if isinstance(v, bytes):
             m[k] = v.decode()
 
