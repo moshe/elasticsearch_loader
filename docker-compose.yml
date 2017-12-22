@@ -7,16 +7,18 @@ services:
     build:
       context: .
       args:
-        python: ${PYTHON_VERSION}
+        python: python:${PYTHON}-alpine3.6
     links:
       - elasticsearch
     depends_on:
       elasticsearch:
         condition: service_healthy
   elasticsearch:
+    image: ${ES}
+    environment:
+      - xpack.security.enabled=false
     logging:
       driver: none
-    image: ${ES_VERSION}
     healthcheck:
       test: ["CMD", "wget", "http://localhost:9200", "-O-"]
       interval: 1s
