@@ -8,8 +8,13 @@
 * Delete index before upload
 * Index documents with _id from the document itself
 * Load data directly from url
-* Supports ES 1.X, 2.X and 5.X
 * SSL and basic auth
+
+### Test matrix
+|python / es| 2.4.6 | 5.6.5 | 6.1.1 |
+| :---:         |     :---:      | :---: |:---: |
+|2.7| ✅| ✅  |✅ |
+|3.6| ✅| ✅|✅ |
 
 ### Installation
 `
