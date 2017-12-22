@@ -44,6 +44,10 @@ Options:
   --type TEXT                     Docs type  [required]
   --id-field TEXT                 Specify field name that be used as document
                                   id
+  --as-child                      Insert _parent, _routing field, the value is 
+                                  same as _id. Note: must specify --id-field
+                                  explicitly
+  --with-retry                    Retry if ES bulk insertion failed
   --index-settings-file FILENAME  Specify path to json file containing index
                                   mapping and settings, creates index if
                                   missing
@@ -81,5 +85,5 @@ Commands:
 `elasticsearch_loader --index-settings-file samples/mappings.json --index incidents --type incident csv file1.csv file2.csv`
 
 ### Tests and sample data
-Tests are located under test and can run by runnig `tox`
-input format can be found under samples
+End to end and regression tests are located under test directory and can run by runnig `./test.py`
+Input formats can be found under samples
