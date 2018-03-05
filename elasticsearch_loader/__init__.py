@@ -166,5 +166,6 @@ def dict_convert_binary_to_string(m):
 
     return m
 
+
 if __name__ == '__main__':
     main()
