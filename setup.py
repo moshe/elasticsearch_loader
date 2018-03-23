@@ -17,9 +17,9 @@ setup(
     long_description=long_description,
     description='A pythonic tool for batch loading data files (json, parquet, csv, tsv) into ElasticSearch',
     install_requires=['elasticsearch', 'click==6.7', 'click-stream', 'click-conf'],
-    tests_require=['pytest', 'mock'],
     extras_require={
-        'parquet': ['parquet']
+        'parquet': ['parquet'],
+        'tests': ['pytest', 'mock'],
     },
     entry_points={
         'console_scripts': [
