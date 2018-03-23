@@ -1,4 +1,0 @@
-elasticsearch
-click==6.7
-click-stream
-click-conf
