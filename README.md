@@ -12,8 +12,9 @@
 
 ### Test matrix
 |python / es| 2.4.6 | 5.6.5 | 6.1.1 |
-|2.7|✅|✅|✅|
-|3.6|✅|✅|✅|
+| ----- | ----- |------ | ----- |
+|2.7|V|V|V|
+|3.6|V|V|V|
 
 ### Installation
 `
@@ -82,7 +83,7 @@ Commands:
 #### Load data from stdin
 `generate_data | elasticsearch_loader --index data --type incident csv -`
 
-#### Read _id from incident_id field
+#### Read id from incident_id field
 `elasticsearch_loader --id-field incident_id --index incidents --type incident csv file1.csv file2.csv`
 
 #### Load custom mappings
