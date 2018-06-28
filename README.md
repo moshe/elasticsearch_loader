@@ -11,7 +11,7 @@
 * SSL and basic auth
 
 ### Test matrix
-|python / es| 2.4.6 | 5.6.5 | 6.1.1 |
+|python / es| 2.4.6 | 5.6.5 | 6.3.0 |
 | ----- | ----- |------ | ----- |
 |2.7|V|V|V|
 |3.6|V|V|V|
