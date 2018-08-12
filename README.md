@@ -83,4 +83,17 @@ Commands:
 `elasticsearch_loader --index incidents --type incident parquet file1.parquet`
 
 #### Load CSV from github repo (actually any http/https is ok)
-`elasticsearch_loader --index data --type avg_height --id-field country json https://raw.githubuserco
+`elasticsearch_loader --index data --type avg_height --id-field country json https://raw.githubusercontent.com/samayo/country-data/master/src/country-avg-male-height.json`
+
+#### Load data from stdin
+`generate_data | elasticsearch_loader --index data --type incident csv -`
+
+#### Read id from incident_id field
+`elasticsearch_loader --id-field incident_id --index incidents --type incident csv file1.csv file2.csv`
+
+#### Load custom mappings
+`elasticsearch_loader --index-settings-file samples/mappings.json --index incidents --type incident csv file1.csv file2.csv`
+
+### Tests and sample data
+End to end and regression tests are located under test directory and can run by runnig `./test.py`
+Input formats can be found under samples
