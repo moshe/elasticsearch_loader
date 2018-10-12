@@ -17,20 +17,20 @@ def bulk_builder(bulk, config):
         body = {'_index': config['index'],
                 '_type': config['type'],
                 '_source': item}
-                
+
         if config['id_field']:
             body['_id'] = item[config['id_field']]
-            
+
             if config['as_child']:
                 body['_parent'] = body['_id']
                 body['_routing'] = body['_id']
-            
+
         if config['update']:
             # default _op_type is 'index', which will overwrites existing doc
-            body['_op_type'] = 'update' 
+            body['_op_type'] = 'update'
             body['doc'] = item
             del body['_source']
-            
+
         yield body
 
 
