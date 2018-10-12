@@ -1,15 +1,15 @@
 # elasticsearch_loader [![Build Status](https://travis-ci.org/moshe/elasticsearch_loader.svg?branch=master)](https://travis-ci.org/moshe/elasticsearch_loader) [![Can I Use Python 3?](https://caniusepython3.com/project/elasticsearch-loader.svg)](https://caniusepython3.com/project/elasticsearch-loader) [![PyPI version](https://badge.fury.io/py/elasticsearch_loader.svg)](https://pypi.python.org/pypi/elasticsearch-loader) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d3cc09c1378b4509a69232e410df2131)](https://app.codacy.com/app/moshe_5/elasticsearch_loader?utm_source=github.com&utm_medium=referral&utm_content=moshe/elasticsearch_loader&utm_campaign=Badge_Grade_Dashboard)
 
-### Main features:
+## Main features
 
-- Batch upload CSV (actually any \*SV) files to Elasticsearch
-- Batch upload JSON files / JSON lines to Elasticsearch
-- Batch upload parquet files to Elasticsearch
-- Pre defining custom mappings
-- Delete index before upload
-- Index documents with \_id from the document itself
-- Load data directly from url
-- SSL and basic auth
+-   Batch upload CSV (actually any \*SV) files to Elasticsearch
+-   Batch upload JSON files / JSON lines to Elasticsearch
+-   Batch upload parquet files to Elasticsearch
+-   Pre defining custom mappings
+-   Delete index before upload
+-   Index documents with \_id from the document itself
+-   Load data directly from url
+-   SSL and basic auth
 
 ### Test matrix
 
@@ -67,6 +67,7 @@ Commands:
   csv
   json     FILES with the format of [{"a": "1"}, {"b": "2"}]
   parquet
+
 ```
 
 ### Examples
