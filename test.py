@@ -4,7 +4,7 @@
 import yaml
 from subprocess import check_call
 
-matrix = yaml.load(file('./.travis.yml'))['env']['matrix']
+matrix = yaml.safe_load(file('./.travis.yml'))['env']['matrix']
 for case in matrix:
     print "-" * 15 + case + "-" * 15
     check_call("{} docker-compose rm -f".format(case), shell=True)

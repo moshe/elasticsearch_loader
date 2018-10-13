@@ -78,13 +78,14 @@ def log(sevirity, msg):
 @click.option('--progress', default=False, is_flag=True, help='Enable progress bar - NOTICE: in order to show progress the entire input should be collected and can consume more memory than without progress bar')
 @click.option('--type', help='Docs type', required=True)
 @click.option('--id-field', help='Specify field name that be used as document id')
-@click.option('--as-child', default=False, is_flag=True, help='Insert _parent, _routing field, the value is same as _id')
+@click.option('--as-child', default=False, is_flag=True, help='Insert _parent, _routing field, the value is same as _id. Note: must specify --id-field explicitly')
 @click.option('--with-retry', default=False, is_flag=True, help='Retry if ES bulk insertion failed')
 @click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings, creates index if missing')
+@click.option('--timeout', type=float, help='Specify request timeout in seconds for Elasticsearch client', default=10)
 @click.pass_context
 def cli(ctx, **opts):
     ctx.obj = opts
-    es_opts = {x: y for x, y in opts.items() if x in ('use_ssl', 'ca_certs', 'verify_certs', 'http_auth')}
+    es_opts = {x: y for x, y in opts.items() if x in ('timeout', 'use_ssl', 'ca_certs', 'verify_certs', 'http_auth')}
     ctx.obj['es_conn'] = Elasticsearch(opts['es_host'], **es_opts)
     if opts['delete']:
         try:

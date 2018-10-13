@@ -9,17 +9,17 @@ except Exception:
 setup(
     name='elasticsearch-loader',
     author='Moshe Zada',
-    version='0.2.2',
+    version='0.2.12',
     packages=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader'],
     url='https://github.com/Moshe/elasticsearch_loader',
     license='',
     long_description=long_description,
     description='A pythonic tool for batch loading data files (json, parquet, csv, tsv) into ElasticSearch',
-    install_requires=map(str.strip, open('./requirements.txt').readlines()),
-    tests_require=map(str.strip, open('./requirements-dev.txt').readlines()),
+    install_requires=['elasticsearch>=6', 'click==6.7', 'click-stream', 'click-conf'],
     extras_require={
-        'parquet': ['parquet']
+        'parquet': ['parquet'],
+        'tests': ['pytest', 'mock'],
     },
     entry_points={
         'console_scripts': [
