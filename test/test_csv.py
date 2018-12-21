@@ -4,10 +4,13 @@
 from click.testing import CliRunner
 from elasticsearch_loader import cli
 import mock
+import sys
 
 
 def invoke(*args, **kwargs):
-    content = u"""id,first,last\nMOZA,Moshe,Zada\nMICHO,Michelle,Obama\na,b,c\nf,g,א""".encode('utf-8')
+    content = u"""id,first,last\nMOZA,Moshe,Zada\nMICHO,Michelle,Obama\na,b,c\nf,g,א"""
+    if sys.version_info[0] == 2:
+        content = content.encode('utf-8')
     runner = CliRunner()
     with runner.isolated_filesystem():
         with open('sample.csv', 'w') as f:
