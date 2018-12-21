@@ -37,9 +37,9 @@ def single_bulk_to_es(bulk, config, attempt_retry):
             raise e
 
         if attempt > 1:
-            log('info', 'attempt [%s/%s] succeed. we just get recovered from previous error' % (attempt, max_attempt))
+            log('info', 'attempt [%s/%s] succeed. We just get recovered from previous error' % (attempt, max_attempt))
 
-        # completed succesfully
+        # completed successfully
         break
 
 
@@ -66,7 +66,7 @@ def log(sevirity, msg):
 
 @click.group(invoke_without_command=True, context_settings={"help_option_names": ['-h', '--help']})
 @conf(default='esl.yml')
-@click.option('--bulk-size', default=500, help='How many docs to collect before writing to ElasticSearch (default 500)')
+@click.option('--bulk-size', default=500, help='How many docs to collect before writing to Elasticsearch (default 500)')
 @click.option('--es-host', default='http://localhost:9200', help='Elasticsearch cluster entry point. (default http://localhost:9200)', envvar='ES_HOST')
 @click.option('--verify-certs', default=False, is_flag=True, help='Make sure we verify SSL certificates (default false)')
 @click.option('--use-ssl', default=False, is_flag=True, help='Turn on SSL (default false)')
@@ -121,19 +121,23 @@ def cli(ctx, **opts):
 @click.pass_context
 def _csv(ctx, files, delimiter):
     lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
-    log('info', 'Loading into ElasticSearch')
+    log('info', 'Loading into Elasticsearch')
     load(lines, ctx.obj)
 
 
 @cli.command(name='json', short_help='FILES with the format of [{"a": "1"}, {"b": "2"}]')
 @click.argument('files', type=Stream(file_mode='rb'), nargs=-1, required=True)
-@click.option('--json-lines', default=False, is_flag=True, help='Files formated as json lines')
+@click.option('--json-lines', '--lines', default=False, is_flag=True, help='Files formatted as json lines')
 @click.pass_context
-def _json(ctx, files, json_lines):
-    if json_lines:
+def _json(ctx, files, lines):
+    if lines:
         lines = chain(*(json_lines_iter(x) for x in files))
     else:
-        lines = chain(*(json.load(x) for x in files))
+        try:
+            lines = chain(*(json.load(x) for x in files))
+        except Exception:
+            log('error', 'Got serialization error while trying to decode json, if you trying to load json lines add the --lines flag')
+            raise
     load(lines, ctx.obj)
 
 
@@ -145,7 +149,7 @@ def _parquet(ctx, files):
         raise SystemExit("parquet module not found, please install manually")
     lines = chain(*(parquet.DictReader(x) for x in files))
     lines = (dict_convert_binary_to_string(x) for x in lines)
-    log('info', 'Loading into ElasticSearch')
+    log('info', 'Loading into Elasticsearch')
     load(lines, ctx.obj)
 
 

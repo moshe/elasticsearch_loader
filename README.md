@@ -32,7 +32,7 @@ Usage: elasticsearch_loader [OPTIONS] COMMAND [ARGS]...
 Options:
   -c, --config-file TEXT          Load default configuration file from esl.yml
   --bulk-size INTEGER             How many docs to collect before writing to
-                                  ElasticSearch (default 500)
+                                  Elasticsearch (default 500)
   --es-host TEXT                  Elasticsearch cluster entry point. (default
                                   http://localhost:9200)
   --verify-certs                  Make sure we verify SSL certificates
@@ -108,3 +108,7 @@ Commands:
 
 End to end and regression tests are located under test directory and can run by running `./test.py`
 Input formats can be found under samples
+
+### Stargazers over time
+
+[![Stargazers over time](https://starcharts.herokuapp.com/moshe/elasticsearch_loader.svg)](https://starcharts.herokuapp.com/moshe/elasticsearch_loader)
