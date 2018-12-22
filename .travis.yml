@@ -4,11 +4,11 @@ before_install:
 language: python
 env:
   matrix:
-    - PYTHON=3.6 ES=docker.elastic.co/elasticsearch/elasticsearch:6.3.0
-    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.3.0
-    - PYTHON=3.6 ES=docker.elastic.co/elasticsearch/elasticsearch:5.6.5
+    - PYTHON=3.6 ES=docker.elastic.co/elasticsearch/elasticsearch:6.5.4
+    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.5.4
+    - PYTHON=3.6 ES=docker.elastic.co/elasticsearch/elasticsearch:5.6.14
+    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:5.6.14
     - PYTHON=3.6 ES=elasticsearch:2.4.6-alpine
-    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:5.6.5
     - PYTHON=2.7 ES=elasticsearch:2.4.6-alpine
 script:
   - docker-compose --version
