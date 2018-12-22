@@ -7,7 +7,7 @@ services:
     build:
       context: .
       args:
-        python: python:${PYTHON}-alpine3.6
+        python: python:${PYTHON}-alpine3.8
     links:
       - elasticsearch
     depends_on:
