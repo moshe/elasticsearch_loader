@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from click.testing import CliRunner
 from elasticsearch_loader import cli
 from elasticsearch import Elasticsearch
