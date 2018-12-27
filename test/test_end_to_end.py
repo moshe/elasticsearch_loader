@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from click.testing import CliRunner
 from elasticsearch_loader import cli
 from elasticsearch import Elasticsearch
@@ -6,7 +8,7 @@ es = Elasticsearch('elasticsearch')
 
 
 def invoke(*args, **kwargs):
-    content = """id,first,last\nMOZA,Moshe,Zada\nMICHO,Michelle,Obama\na,b,c\nf,g,h"""
+    content = """id,first,last\nMOZA,Moshe,Zada\nMICHO,Michelle,Obama\na,b,c\nf,g,אJoão"""
     runner = CliRunner()
     with runner.isolated_filesystem():
         with open('sample.csv', 'w') as f:

@@ -1,3 +1,5 @@
+import sys
+
 try:
     import ujson as json
 except ImportError:
@@ -6,3 +8,8 @@ try:
     import parquet
 except ImportError:
     parquet = False
+
+if sys.version_info.major == 2:
+    import unicodecsv as csv
+else:
+    import csv

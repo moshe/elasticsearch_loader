@@ -25,4 +25,4 @@ def test_should_iterate_over_csv(bulk):
     assert [x for x in bulk.call_args[0][0] if x is not None] == [{'first': 'Moshe', 'id': 'MOZA', 'last': 'Zada'},
                                                                   {'first': 'Michelle', 'id': 'MICHO', 'last': 'Obama'},
                                                                   {'first': 'b', 'id': 'a', 'last': 'c'},
-                                                                  {'first': 'g', 'id': 'f', 'last': 'א'}]
+                                                                  {'first': 'g', 'id': 'f', 'last': u'א'}]

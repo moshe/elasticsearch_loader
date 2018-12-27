@@ -8,11 +8,10 @@ from click_stream import Stream
 from click_conf import conf
 from itertools import chain
 from datetime import datetime
-import csv
 import click
 import time
 
-from .parsers import json, parquet
+from .parsers import json, parquet, csv
 from .iter import grouper, bulk_builder, json_lines_iter
 
 
@@ -53,6 +52,7 @@ def load(lines, config):
                 single_bulk_to_es(bulk, config, config['with_retry'])
             except Exception as e:
                 log('warn', 'Chunk {i} got exception ({e}) while processing'.format(e=e, i=i))
+                raise
 
 
 def format_msg(msg, sevirity):
