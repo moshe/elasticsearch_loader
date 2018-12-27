@@ -8,12 +8,10 @@ from click_stream import Stream
 from click_conf import conf
 from itertools import chain
 from datetime import datetime
-# import csv
-import unicodecsv as csv
 import click
 import time
 
-from .parsers import json, parquet
+from .parsers import json, parquet, csv
 from .iter import grouper, bulk_builder, json_lines_iter
 
 
