@@ -10,6 +10,7 @@
 -   Index documents with \_id from the document itself
 -   Load data directly from url
 -   SSL and basic auth
+-   Unicode Support ✌️
 
 ### Test matrix
 
