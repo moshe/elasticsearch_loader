@@ -1,5 +1,4 @@
-language: python
-cache: pip
+language: minimal
 env:
   matrix:
     - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.5.4
