@@ -11,8 +11,8 @@ from datetime import datetime
 import click
 import time
 
-from .parsers import json, parquet, csv
-from .iter import grouper, bulk_builder, json_lines_iter
+from .parsers import json, parquet, csv, redis
+from .iter import grouper, bulk_builder, json_lines_iter, redis_list_iterator
 
 
 def single_bulk_to_es(bulk, config, attempt_retry):
@@ -43,6 +43,7 @@ def single_bulk_to_es(bulk, config, attempt_retry):
 
 
 def load(lines, config):
+    log('info', 'Loading into Elasticsearch')
     bulks = grouper(lines, config['bulk_size'] * 3)
     if config['progress']:
         bulks = [x for x in bulks]
@@ -121,7 +122,6 @@ def cli(ctx, **opts):
 @click.pass_context
 def _csv(ctx, files, delimiter):
     lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
-    log('info', 'Loading into Elasticsearch')
     load(lines, ctx.obj)
 
 
@@ -149,8 +149,17 @@ def _parquet(ctx, files):
         raise SystemExit("parquet module not found, please install manually")
     lines = chain(*(parquet.DictReader(x) for x in files))
     lines = (dict_convert_binary_to_string(x) for x in lines)
-    log('info', 'Loading into Elasticsearch')
     load(lines, ctx.obj)
+
+
+@cli.command(name='redis')
+@click.argument('list_name', type=str, nargs=1, required=True)
+@click.pass_context
+def _redis(ctx, list_name):
+    if not redis:
+        raise SystemExit("redis module not found, please install manually")
+    conn = redis.Redis()
+    load(redis_list_iterator(conn, list_name), ctx.obj)
 
 
 def load_plugins():
