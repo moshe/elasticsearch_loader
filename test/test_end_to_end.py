@@ -3,6 +3,7 @@
 from click.testing import CliRunner
 from elasticsearch_loader import cli
 from elasticsearch import Elasticsearch
+from redis import Redis
 
 es = Elasticsearch('elasticsearch')
 
@@ -32,3 +33,10 @@ def test_should_load_from_id():
     assert es.get(index='index', doc_type='type', id='MICHO')['found'] is True
     assert es.get(index='index', doc_type='type', id='a')['found'] is True
     assert es.get(index='index', doc_type='type', id='f')['found'] is True
+
+
+def test_read_from_redis():
+    redis = Redis(host='redis')
+    [redis.lpush('list', '{"name": "esl"}') for _ in range(10)]
+    invoke(cli, ['--index=index', '--delete', '--type=type', '--bulk-size=2', 'redis', '--list-read-timeout=1', 'list'], catch_exceptions=False)
+    assert es.search(index='index', body={"query": {"bool": {"filter": [{"match": {"name": "esl"}}]}}})['hits']['total'] == 1
