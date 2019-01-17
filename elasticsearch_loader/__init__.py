@@ -11,8 +11,8 @@ from datetime import datetime
 import click
 import time
 
-from .parsers import json, parquet, csv, redis
-from .iter import grouper, bulk_builder, json_lines_iter, redis_list_iterator
+from .parsers import json, parquet, csv
+from .iter import grouper, bulk_builder, json_lines_iter
 
 
 def single_bulk_to_es(bulk, config, attempt_retry):
@@ -150,16 +150,6 @@ def _parquet(ctx, files):
     lines = chain(*(parquet.DictReader(x) for x in files))
     lines = (dict_convert_binary_to_string(x) for x in lines)
     load(lines, ctx.obj)
-
-
-@cli.command(name='redis')
-@click.argument('list_name', type=str, nargs=1, required=True)
-@click.pass_context
-def _redis(ctx, list_name):
-    if not redis:
-        raise SystemExit("redis module not found, please install manually")
-    conn = redis.Redis()
-    load(redis_list_iterator(conn, list_name), ctx.obj)
 
 
 def load_plugins():

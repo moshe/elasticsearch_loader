@@ -9,11 +9,6 @@ try:
 except ImportError:
     parquet = False
 
-try:
-    import redis
-except ImportError:
-    redis = False
-
 if sys.version_info.major == 2:
     import unicodecsv as csv
 else:

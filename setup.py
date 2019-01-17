@@ -24,7 +24,7 @@ setup(
     install_requires=['elasticsearch>=6', 'click==6.7', 'click-stream', 'click-conf'] + extras,
     extras_require={
         'parquet': ['parquet'],
-        'redis': ['redis'],
+        'redis': ['esl-redis'],
         'tests': ['pytest', 'mock'],
     },
     entry_points={

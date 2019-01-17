@@ -37,8 +37,3 @@ def bulk_builder(bulk, config):
 def json_lines_iter(fle):
     for line in fle:
         yield json.loads(line.decode('utf-8'))
-
-
-def redis_list_iterator(redis_connection, list_name):
-    while True:
-        yield json.loads(redis_connection.blpop(list_name)[1])
