@@ -36,7 +36,11 @@ def test_should_load_from_id():
 
 
 def test_read_from_redis():
+    list_name = 'list'
+    items = 10
+
     redis = Redis(host='redis')
-    [redis.lpush('list', '{"name": "esl"}') for _ in range(10)]
-    invoke(cli, ['--index=index', '--delete', '--type=type', '--bulk-size=2', 'redis', '--list-read-timeout=1', 'list'], catch_exceptions=False)
-    assert es.search(index='index', body={"query": {"bool": {"filter": [{"match": {"name": "esl"}}]}}})['hits']['total'] == 1
+    [redis.lpush(list_name, '{"name": "esl"}') for _ in range(items)]
+
+    invoke(cli, ['--index=index', '--delete', '--type=type', '--bulk-size=2', 'redis', '--list-read-timeout=1', list_name], catch_exceptions=False)
+    assert es.search(index='index', body={"query": {"bool": {"filter": [{"match": {"name": "esl"}}]}}})['hits']['total'] == items

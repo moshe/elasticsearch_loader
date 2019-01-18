@@ -22,9 +22,9 @@ def redis_list_iterator(redis_connection, list_names, list_read_timeout):
 @click.argument('list_names', type=str, nargs=-1, required=True)
 @click.pass_context
 def _redis(ctx, host, port, db, list_read_timeout, list_names):
-    conn = redis.Redis(host=host, port=port, defaultb=db)
+    conn = redis.Redis(host=host, port=port, db=db)
     load(redis_list_iterator(conn, list_names, list_read_timeout), ctx.obj)
 
 
 def register():
-    return _redis
+    return 'redis', _redis

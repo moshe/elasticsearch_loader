@@ -157,14 +157,8 @@ def _parquet(ctx, files):
 def load_plugins():
     for plugin in iter_entry_points(group='esl.plugins'):
         log('info', 'loading %s' % plugin.module_name)
-        entry = plugin.resolve()()
-        name = entry.func_name.strip('_')
+        name, entry = plugin.resolve()()
         cli.command(name=name)(entry)
-
-
-def main():
-    load_plugins()
-    cli()
 
 
 def dict_convert_binary_to_string(m):
@@ -175,5 +169,7 @@ def dict_convert_binary_to_string(m):
     return m
 
 
+load_plugins()
+
 if __name__ == '__main__':
-    main()
+    cli()
