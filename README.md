@@ -14,7 +14,7 @@
 
 ## Plugins
 In order to install plugin, simply run `pip install plugin-name`
--   esl-redis - Read continuously from a redis list(s) and index to elasticsearch
+-   [esl-redis](https://pypi.org/project/esl-redis) - Read continuously from a redis list(s) and index to elasticsearch
 
 ### Test matrix
 
