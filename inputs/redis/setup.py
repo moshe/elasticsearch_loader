@@ -18,7 +18,6 @@ setup(
     description='elasticsearch_loader plugin for redis',
     install_requires=[
         'elasticsearch-loader',
-        'click',
         'redis'
     ],
     tests_require=[
