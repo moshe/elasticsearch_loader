@@ -14,7 +14,7 @@ except Exception:
 setup(
     name='elasticsearch-loader',
     author='Moshe Zada',
-    version='0.2.13',
+    version='0.2.14',
     packages=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader', 'redis'],
     url='https://github.com/Moshe/elasticsearch_loader',
@@ -29,7 +29,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'elasticsearch_loader = elasticsearch_loader:main',
+            'elasticsearch_loader = elasticsearch_loader:cli',
         ]
     }
 )

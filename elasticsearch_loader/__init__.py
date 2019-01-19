@@ -43,7 +43,6 @@ def single_bulk_to_es(bulk, config, attempt_retry):
 
 
 def load(lines, config):
-    log('info', 'Loading into Elasticsearch')
     bulks = grouper(lines, config['bulk_size'] * 3)
     if config['progress']:
         bulks = [x for x in bulks]
