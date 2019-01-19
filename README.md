@@ -12,6 +12,10 @@
 -   SSL and basic auth
 -   Unicode Support ✌️
 
+## Plugins
+In order to install plugin, simply run `pip install plugin-name`
+-   [esl-redis](https://pypi.org/project/esl-redis) - Read continuously from a redis list(s) and index to elasticsearch
+
 ### Test matrix
 
 | python / es | 2.4.6 | 5.6.14 | 6.5.4 |
@@ -68,6 +72,7 @@ Commands:
   csv
   json     FILES with the format of [{"a": "1"}, {"b": "2"}]
   parquet
+  redis
 
 ```
 

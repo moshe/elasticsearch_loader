@@ -14,9 +14,9 @@ except Exception:
 setup(
     name='elasticsearch-loader',
     author='Moshe Zada',
-    version='0.2.13',
+    version='0.2.14',
     packages=['elasticsearch_loader'],
-    keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader'],
+    keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader', 'redis'],
     url='https://github.com/Moshe/elasticsearch_loader',
     license='',
     long_description=long_description,
@@ -24,11 +24,12 @@ setup(
     install_requires=['elasticsearch>=6', 'click==6.7', 'click-stream', 'click-conf'] + extras,
     extras_require={
         'parquet': ['parquet'],
+        'redis': ['esl-redis'],
         'tests': ['pytest', 'mock'],
     },
     entry_points={
         'console_scripts': [
-            'elasticsearch_loader = elasticsearch_loader:main',
+            'elasticsearch_loader = elasticsearch_loader:cli',
         ]
     }
 )

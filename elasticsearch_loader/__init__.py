@@ -75,10 +75,12 @@ def log(sevirity, msg):
 @click.option('--index', help='Destination index name', required=True)
 @click.option('--delete', default=False, is_flag=True, help='Delete index before import? (default false)')
 @click.option('--update', default=False, is_flag=True, help='Merge and update existing doc instead of overwrite')
-@click.option('--progress', default=False, is_flag=True, help='Enable progress bar - NOTICE: in order to show progress the entire input should be collected and can consume more memory than without progress bar')
+@click.option('--progress', default=False, is_flag=True, help='Enable progress bar - '
+              'NOTICE: in order to show progress the entire input should be collected and can consume more memory than without progress bar')
 @click.option('--type', help='Docs type', required=True)
 @click.option('--id-field', help='Specify field name that be used as document id')
-@click.option('--as-child', default=False, is_flag=True, help='Insert _parent, _routing field, the value is same as _id. Note: must specify --id-field explicitly')
+@click.option('--as-child', default=False, is_flag=True, help='Insert _parent, _routing field, '
+              'the value is same as _id. Note: must specify --id-field explicitly')
 @click.option('--with-retry', default=False, is_flag=True, help='Retry if ES bulk insertion failed')
 @click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings, creates index if missing')
 @click.option('--timeout', type=float, help='Specify request timeout in seconds for Elasticsearch client', default=10)
@@ -121,7 +123,6 @@ def cli(ctx, **opts):
 @click.pass_context
 def _csv(ctx, files, delimiter):
     lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
-    log('info', 'Loading into Elasticsearch')
     load(lines, ctx.obj)
 
 
@@ -149,19 +150,14 @@ def _parquet(ctx, files):
         raise SystemExit("parquet module not found, please install manually")
     lines = chain(*(parquet.DictReader(x) for x in files))
     lines = (dict_convert_binary_to_string(x) for x in lines)
-    log('info', 'Loading into Elasticsearch')
     load(lines, ctx.obj)
 
 
 def load_plugins():
     for plugin in iter_entry_points(group='esl.plugins'):
         log('info', 'loading %s' % plugin.module_name)
-        plugin.resolve()(cli)
-
-
-def main():
-    load_plugins()
-    cli()
+        name, entry = plugin.resolve()()
+        cli.command(name=name)(entry)
 
 
 def dict_convert_binary_to_string(m):
@@ -172,5 +168,7 @@ def dict_convert_binary_to_string(m):
     return m
 
 
+load_plugins()
+
 if __name__ == '__main__':
-    main()
+    cli()

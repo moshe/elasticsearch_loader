@@ -3,6 +3,7 @@ services:
   loader:
     environment:
       - ES_HOST=elasticsearch
+      - REDIS_HOST=redis
     command: py.test /app
     build:
       context: .
@@ -10,8 +11,11 @@ services:
         python: python:${PYTHON}-alpine3.8
     links:
       - elasticsearch
+      - redis
     depends_on:
       elasticsearch:
+        condition: service_healthy
+      redis:
         condition: service_healthy
   elasticsearch:
     image: ${ES}
@@ -21,6 +25,15 @@ services:
       driver: none
     healthcheck:
       test: ["CMD", "wget", "http://localhost:9200", "-O-"]
+      interval: 1s
+      timeout: 1s
+      retries: 120
+  redis:
+    image: "redis:5-alpine"
+    logging:
+      driver: none
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
       interval: 1s
       timeout: 1s
       retries: 120
