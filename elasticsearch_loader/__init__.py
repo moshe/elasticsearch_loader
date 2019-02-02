@@ -155,7 +155,6 @@ def _parquet(ctx, files):
 
 def load_plugins():
     for plugin in iter_entry_points(group='esl.plugins'):
-        log('info', 'loading %s' % plugin.module_name)
         name, entry = plugin.resolve()()
         cli.command(name=name)(entry)
 
