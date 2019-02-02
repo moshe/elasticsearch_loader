@@ -74,6 +74,7 @@ Commands:
   json     FILES with the format of [{"a": "1"}, {"b": "2"}]
   parquet
   redis
+  s3
 
 ```
 
