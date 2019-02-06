@@ -1,7 +1,4 @@
-before_install:
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-language: python
+language: minimal
 env:
   matrix:
     - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.5.4
