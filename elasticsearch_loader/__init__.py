@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from elasticsearch import helpers
-from elasticsearch import Elasticsearch
-from elasticsearch.exceptions import NotFoundError
-from pkg_resources import iter_entry_points
-from click_stream import Stream
-from click_conf import conf
-from itertools import chain
-from datetime import datetime
-import click
 import time
+from datetime import datetime
+from itertools import chain
 
-from .parsers import json, parquet, csv
-from .iter import grouper, bulk_builder, json_lines_iter
+from pkg_resources import iter_entry_points
+
+import click
+from click_conf import conf
+from click_stream import Stream
+from elasticsearch import Elasticsearch, helpers
+from elasticsearch.exceptions import NotFoundError
+
+from .iter import bulk_builder, grouper, json_lines_iter
+from .parsers import csv, json, parquet
 
 
 def single_bulk_to_es(bulk, config, attempt_retry):
