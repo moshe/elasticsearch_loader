@@ -4,13 +4,13 @@ import time
 from datetime import datetime
 from itertools import chain
 
-from pkg_resources import iter_entry_points
-
 import click
-from click_conf import conf
-from click_stream import Stream
 from elasticsearch import Elasticsearch, helpers
 from elasticsearch.exceptions import NotFoundError
+from pkg_resources import iter_entry_points
+
+from click_conf import conf
+from click_stream import Stream
 
 from .iter import bulk_builder, grouper, json_lines_iter
 from .parsers import csv, json, parquet
