@@ -98,9 +98,11 @@ def cli(ctx, **opts):
             log('info', 'Skipping index deletion')
     if opts['index_settings_file']:
         if ctx.obj['es_conn'].indices.exists(index=opts['index']):
-            ctx.obj['es_conn'].indices.put_settings(index=opts['index'], body=opts['index_settings_file'].read())
+            ctx.obj['es_conn'].indices.put_settings(
+                index=opts['index'], body=json.load(opts['index_settings_file']))
         else:
-            ctx.obj['es_conn'].indices.create(index=opts['index'], body=opts['index_settings_file'].read())
+            ctx.obj['es_conn'].indices.create(
+                index=opts['index'], body=json.load(opts['index_settings_file']))
     if ctx.invoked_subcommand is None:
         commands = cli.commands.keys()
         if ctx.default_map:
