@@ -4,6 +4,9 @@ services:
     environment:
       - ES_HOST=elasticsearch
       - REDIS_HOST=redis
+      - TRAVIS
+      - TRAVIS_REPO_SLUG
+      - TRAVIS_PULL_REQUEST
     command: py.test /app
     build:
       context: .
