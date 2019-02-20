@@ -1,5 +1,6 @@
-from setuptools import setup
 import sys
+
+from setuptools import setup
 
 extras = []
 if sys.version_info.major == 2:
@@ -25,7 +26,7 @@ setup(
     extras_require={
         'parquet': ['parquet'],
         'redis': ['esl-redis'],
-        'tests': ['pytest', 'mock'],
+        'tests': ['pytest', 'mock', 'pytest-tomato'],
     },
     entry_points={
         'console_scripts': [
