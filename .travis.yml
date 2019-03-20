@@ -4,6 +4,8 @@ before_install:
 language: python
 env:
   matrix:
+    - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:7.0.0-beta1
+    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:7.0.0-beta1
     - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.6.2
     - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.6.2
     - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:5.6.16
