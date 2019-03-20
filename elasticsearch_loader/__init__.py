@@ -78,7 +78,7 @@ def log(sevirity, msg):
 @click.option('--update', default=False, is_flag=True, help='Merge and update existing doc instead of overwrite')
 @click.option('--progress', default=False, is_flag=True, help='Enable progress bar - '
               'NOTICE: in order to show progress the entire input should be collected and can consume more memory than without progress bar')
-@click.option('--type', help='Docs type', required=True)
+@click.option('--type', help='Docs type. TYPES WILL BE DEPRECATED IN APIS IN ELASTICSEARCH 7, AND COMPLETELY REMOVED IN 8.', required=True, default='_doc')
 @click.option('--id-field', help='Specify field name that be used as document id')
 @click.option('--as-child', default=False, is_flag=True, help='Insert _parent, _routing field, '
               'the value is same as _id. Note: must specify --id-field explicitly')
