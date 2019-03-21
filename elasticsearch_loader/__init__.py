@@ -14,7 +14,7 @@ from click_stream import Stream
 
 from .iter import bulk_builder, grouper, json_lines_iter
 from .parsers import csv, json, parquet
-
+from enum import Enum
 
 def single_bulk_to_es(bulk, config, attempt_retry):
     bulk = bulk_builder(bulk, config)
@@ -123,10 +123,82 @@ def cli(ctx, **opts):
 @cli.command(name='csv')
 @click.argument('files', type=Stream(file_mode='r'), nargs=-1, required=True)
 @click.option('--delimiter', default=',', type=str, help='Default ,')
+@click.option('--parse-types', default=False, is_flag=True, help='Attempt to discover column data types')
 @click.pass_context
-def _csv(ctx, files, delimiter):
-    lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
+def _csv(ctx, files, delimiter, parse_types):
+    lines = chain(*(parse_csv(csv.DictReader(x, delimiter=str(delimiter)), parse_types) for x in files))
     load(lines, ctx.obj)
+
+class CsvDataType(Enum):
+    BOOL = 1
+    INT = 2
+    FLOAT = 3
+    STRING = 4
+
+def parse_csv(reader, parse_types):
+    if(not(parse_types)):
+        return reader
+
+    log('info', 'Attempting to discover CSV column data types')
+    types = {}
+    lines = []
+    for row in reader:
+        lines.append(row)
+        for key in row:
+            if not(key in types):
+                types[key] = None
+            types[key] = get_higher_priority_type(types[key], get_value_type(row[key]))
+
+    for line in lines:
+        for key in line:
+            if types[key] == CsvDataType.BOOL:
+                if line[key] == 'true':
+                    line[key] = True
+                elif line[key] == 'false':
+                    line[key] = False
+            elif types[key] == CsvDataType.INT:
+                line[key] = int(line[key])
+            elif types[key] == CsvDataType.FLOAT:
+                line[key] = float(line[key])
+    return lines
+
+def get_value_type(v):
+    if v=='true' or v=='false':
+        return CsvDataType.BOOL
+    try:
+        int(v)
+        return CsvDataType.INT
+    except:
+        pass
+    try:
+        float(v)
+        return CsvDataType.FLOAT
+    except:
+        pass
+    return CsvDataType.STRING
+
+def get_higher_priority_type(t1, t2):
+    if t1 is None:
+        return t2
+    elif t1 == t2:
+        return t1
+    if t1.value > t2.value:
+        t1,t2 = t2,t1
+
+    if t2 == CsvDataType.STRING:
+        return CsvDataType.STRING
+    elif t2 == CsvDataType.FLOAT:
+        if t1 == CsvDataType.INT:
+            return CsvDataType.FLOAT
+        elif t1 == CsvDataType.BOOL:
+            return CsvDataType.STRING
+    elif t2 == CsvDataType.INT:
+        if t1 == CsvDataType.BOOL:
+            return CsvDataType.STRING
+    elif t2 == CsvDataType.BOOL:
+        pass #nothing to do
+
+    return CsvDataType.STRING
 
 
 @cli.command(name='json', short_help='FILES with the format of [{"a": "1"}, {"b": "2"}]')
