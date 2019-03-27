@@ -85,6 +85,7 @@ def log(sevirity, msg):
 @click.option('--with-retry', default=False, is_flag=True, help='Retry if ES bulk insertion failed')
 @click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings, creates index if missing')
 @click.option('--timeout', type=float, help='Specify request timeout in seconds for Elasticsearch client', default=10)
+@click.option('--encoding', type=str, help='Specify content encoding for input files', default='utf-8')
 @click.pass_context
 def cli(ctx, **opts):
     ctx.obj = opts
