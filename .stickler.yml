@@ -1,5 +1,6 @@
 linters:
   flake8:
     fixer: true
+    ignore: 'E501'
 fixers:
   enable: true
