@@ -131,7 +131,7 @@ def _csv(ctx, files, delimiter):
 
 
 @cli.command(name='json', short_help='FILES with the format of [{"a": "1"}, {"b": "2"}]')
-@click.argument('files', type=Stream(file_mode='rb'), nargs=-1, required=True)
+@click.argument('files', type=Stream(file_mode='r'), nargs=-1, required=True)
 @click.option('--json-lines', '--lines', default=False, is_flag=True, help='Files formatted as json lines')
 @click.pass_context
 def _json(ctx, files, lines):
