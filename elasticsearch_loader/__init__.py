@@ -153,7 +153,6 @@ def _parquet(ctx, files):
     if not parquet:
         raise SystemExit("parquet module not found, please install manually")
     lines = chain(*(parquet.DictReader(x) for x in files))
-    lines = (dict_convert_binary_to_string(x) for x in lines)
     load(lines, ctx.obj)
 
 
@@ -161,14 +160,6 @@ def load_plugins():
     for plugin in iter_entry_points(group='esl.plugins'):
         name, entry = plugin.resolve()()
         cli.command(name=name)(entry)
-
-
-def dict_convert_binary_to_string(m):
-    for k, v in m.items():
-        if isinstance(v, bytes):
-            m[k] = v.decode()
-
-    return m
 
 
 load_plugins()

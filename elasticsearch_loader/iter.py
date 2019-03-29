@@ -36,4 +36,4 @@ def bulk_builder(bulk, config):
 
 def json_lines_iter(fle):
     for line in fle:
-        yield json.loads(line.decode('utf-8'))
+        yield json.loads(line)
