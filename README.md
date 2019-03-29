@@ -1,6 +1,4 @@
-## *Ad: [Tomato Bot](https://tomato-bot.com) - Gain faster feedback for your tests, in GitHub (free for public repos)*
-
-# elasticsearch_loader [![Build Status](https://travis-ci.org/moshe/elasticsearch_loader.svg?branch=master)](https://travis-ci.org/moshe/elasticsearch_loader)
+# elasticsearch_loader [![Build Status](https://travis-ci.org/moshe/elasticsearch_loader.svg?branch=master)](https://travis-ci.org/moshe/elasticsearch_loader) [![Can I Use Python 3?](https://caniusepython3.com/project/elasticsearch-loader.svg)](https://caniusepython3.com/project/elasticsearch-loader) [![PyPI version](https://badge.fury.io/py/elasticsearch_loader.svg)](https://pypi.python.org/pypi/elasticsearch-loader)
 
 ## Main features
 
@@ -21,7 +19,7 @@ In order to install plugin, simply run `pip install plugin-name`
 
 ### Test matrix
 
-| python / es | 2.4.6 | 5.6.14 | 6.5.4 |
+| python / es | 2.4.6 | 5.6.16 | 6.6.2 |
 | ----------- | ----- | ----- | ----- |
 | 2.7         | V     | V     | V     |
 | 3.7         | V     | V     | V     |
@@ -57,7 +55,9 @@ Options:
                                   show progress the entire input should be
                                   collected and can consume more memory than
                                   without progress bar
-  --type TEXT                     Docs type  [required]
+  --type TEXT                     Docs type. TYPES WILL BE DEPRECATED IN APIS
+                                  IN ELASTICSEARCH 7, AND COMPLETELY REMOVED
+                                  IN 8.  [required]
   --id-field TEXT                 Specify field name that be used as document
                                   id
   --as-child                      Insert _parent, _routing field, the value is
@@ -69,14 +69,13 @@ Options:
                                   missing
   --timeout FLOAT                 Specify request timeout in seconds for
                                   Elasticsearch client
+  --encoding TEXT                 Specify content encoding for input files
   -h, --help                      Show this message and exit.
 
 Commands:
   csv
   json     FILES with the format of [{"a": "1"}, {"b": "2"}]
   parquet
-  redis
-  s3
 
 ```
 

@@ -15,7 +15,7 @@ except Exception:
 setup(
     name='elasticsearch-loader',
     author='Moshe Zada',
-    version='0.2.24',
+    version='0.2.25',
     packages=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader', 'redis'],
     url='https://github.com/Moshe/elasticsearch_loader',

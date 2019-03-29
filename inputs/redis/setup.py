@@ -9,7 +9,7 @@ except Exception:
 setup(
     name='esl-redis',
     author='Moshe Zada',
-    version='0.2.24',
+    version='0.2.25',
     py_modules=['esl_redis'],
     keywords=['elastic', 'elasticsearch', 'esl', 'redis', 'bulk', 'loader'],
     url='https://github.com/moshe/elasticsearch_loader',
