@@ -85,6 +85,7 @@ def log(sevirity, msg):
 @click.option('--with-retry', default=False, is_flag=True, help='Retry if ES bulk insertion failed')
 @click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings, creates index if missing')
 @click.option('--timeout', type=float, help='Specify request timeout in seconds for Elasticsearch client', default=10)
+@click.option('--encoding', type=str, help='Specify content encoding for input files', default='utf-8')
 @click.pass_context
 def cli(ctx, **opts):
     ctx.obj = opts
@@ -130,7 +131,7 @@ def _csv(ctx, files, delimiter):
 
 
 @cli.command(name='json', short_help='FILES with the format of [{"a": "1"}, {"b": "2"}]')
-@click.argument('files', type=Stream(file_mode='rb'), nargs=-1, required=True)
+@click.argument('files', type=Stream(file_mode='r'), nargs=-1, required=True)
 @click.option('--json-lines', '--lines', default=False, is_flag=True, help='Files formatted as json lines')
 @click.pass_context
 def _json(ctx, files, lines):
@@ -152,7 +153,6 @@ def _parquet(ctx, files):
     if not parquet:
         raise SystemExit("parquet module not found, please install manually")
     lines = chain(*(parquet.DictReader(x) for x in files))
-    lines = (dict_convert_binary_to_string(x) for x in lines)
     load(lines, ctx.obj)
 
 
@@ -160,14 +160,6 @@ def load_plugins():
     for plugin in iter_entry_points(group='esl.plugins'):
         name, entry = plugin.resolve()()
         cli.command(name=name)(entry)
-
-
-def dict_convert_binary_to_string(m):
-    for k, v in m.items():
-        if isinstance(v, bytes):
-            m[k] = v.decode()
-
-    return m
 
 
 load_plugins()
