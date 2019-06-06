@@ -6,8 +6,8 @@ env:
   matrix:
     - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:7.1.1
     - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:7.1.1
-    - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.6.2
-    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.6.2
+    - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.8.0
+    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.8.0
     - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:5.6.16
     - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:5.6.16
     - PYTHON=3.7 ES=elasticsearch:2.4.6-alpine
