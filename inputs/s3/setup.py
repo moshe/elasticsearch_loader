@@ -9,7 +9,7 @@ except Exception:
 setup(
     name='esl-s3',
     author='Moshe Zada',
-    version='0.2.25',
+    version='0.3.0',
     py_modules=['esl_s3'],
     keywords=['elastic', 'elasticsearch', 'esl', 's3', 'bulk', 'loader', 'boto', 'aws', 'cloud'],
     url='https://github.com/moshe/elasticsearch_loader',

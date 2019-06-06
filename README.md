@@ -19,7 +19,7 @@ In order to install plugin, simply run `pip install plugin-name`
 
 ### Test matrix
 
-| python / es | 2.4.6 | 5.6.16 | 6.6.2 |
+| python / es | 5.6.16 | 6.8.0 | 7.1.1 |
 | ----------- | ----- | ----- | ----- |
 | 2.7         | V     | V     | V     |
 | 3.7         | V     | V     | V     |
@@ -76,6 +76,8 @@ Commands:
   csv
   json     FILES with the format of [{"a": "1"}, {"b": "2"}]
   parquet
+  redis
+  s3
 
 ```
 
