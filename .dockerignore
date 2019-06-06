@@ -4,3 +4,4 @@ dump
 __pycache__
 *.pyc
 .travis.yml
+docker-compose.yml

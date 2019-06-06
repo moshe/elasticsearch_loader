@@ -21,11 +21,12 @@ services:
     image: ${ES}
     environment:
       - xpack.security.enabled=false
+      - discovery.type=single-node
     logging:
       driver: none
     healthcheck:
       test: ["CMD", "wget", "http://localhost:9200", "-O-"]
-      interval: 1s
+      interval: 10s
       timeout: 1s
       retries: 120
   redis:
