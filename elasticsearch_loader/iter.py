@@ -14,9 +14,13 @@ def grouper(iterable, n, fillvalue=None):
 
 def bulk_builder(bulk, config):
     for item in filter(None, bulk):
+        source = item
+        if config['keys']:
+            source = {x: y for x, y in item.items() if x in config['keys']}
+
         body = {'_index': config['index'],
                 '_type': config['type'],
-                '_source': item}
+                '_source': source}
 
         if config['id_field']:
             body['_id'] = item[config['id_field']]
@@ -28,7 +32,7 @@ def bulk_builder(bulk, config):
         if config['update']:
             # default _op_type is 'index', which will overwrites existing doc
             body['_op_type'] = 'update'
-            body['doc'] = item
+            body['doc'] = source
             del body['_source']
 
         yield body

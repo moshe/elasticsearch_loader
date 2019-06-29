@@ -1,6 +1,7 @@
-from click.testing import CliRunner
-from elasticsearch_loader import cli
 import mock
+from click.testing import CliRunner
+
+from elasticsearch_loader import cli
 
 
 def invoke(*args, **kwargs):

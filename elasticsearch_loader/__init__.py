@@ -86,6 +86,7 @@ def log(sevirity, msg):
 @click.option('--index-settings-file', type=click.File('rb'), help='Specify path to json file containing index mapping and settings, creates index if missing')
 @click.option('--timeout', type=float, help='Specify request timeout in seconds for Elasticsearch client', default=10)
 @click.option('--encoding', type=str, help='Specify content encoding for input files', default='utf-8')
+@click.option('--keys', type=str, help='Comma separated keys to pick from each document', default='', callback=lambda c, p, v: [x for x in v.split(',') if x])
 @click.pass_context
 def cli(ctx, **opts):
     ctx.obj = opts
