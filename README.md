@@ -70,6 +70,8 @@ Options:
   --timeout FLOAT                 Specify request timeout in seconds for
                                   Elasticsearch client
   --encoding TEXT                 Specify content encoding for input files
+  --keys TEXT                     Comma separated keys to pick from each
+                                  document
   -h, --help                      Show this message and exit.
 
 Commands:
