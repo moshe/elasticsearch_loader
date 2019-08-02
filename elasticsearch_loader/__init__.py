@@ -127,6 +127,8 @@ def cli(ctx, **opts):
 @click.option('--delimiter', default=',', type=str, help='Default ,')
 @click.pass_context
 def _csv(ctx, files, delimiter):
+    if delimiter == '\\t':
+        delimiter = '\t'
     lines = chain(*(csv.DictReader(x, delimiter=str(delimiter)) for x in files))
     load(lines, ctx.obj)
 
