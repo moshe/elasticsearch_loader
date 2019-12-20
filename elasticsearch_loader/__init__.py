@@ -68,7 +68,8 @@ def log(sevirity, msg):
 @click.group(invoke_without_command=True, context_settings={"help_option_names": ['-h', '--help']})
 @conf(default='esl.yml')
 @click.option('--bulk-size', default=500, help='How many docs to collect before writing to Elasticsearch (default 500)')
-@click.option('--es-host', default='http://localhost:9200', help='Elasticsearch cluster entry point. (default http://localhost:9200)', envvar='ES_HOST')
+@click.option('--es-host', default=['http://localhost:9200'], multiple=True, envvar='ES_HOST',
+              help='Elasticsearch cluster entry point. (default http://localhost:9200)')
 @click.option('--verify-certs', default=False, is_flag=True, help='Make sure we verify SSL certificates (default false)')
 @click.option('--use-ssl', default=False, is_flag=True, help='Turn on SSL (default false)')
 @click.option('--ca-certs', help='Provide a path to CA certs on disk')
