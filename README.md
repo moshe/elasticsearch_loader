@@ -1,4 +1,4 @@
-# elasticsearch_loader [![Can I Use Python 3?](https://caniusepython3.com/project/elasticsearch-loader.svg)](https://caniusepython3.com/project/elasticsearch-loader) [![PyPI version](https://badge.fury.io/py/elasticsearch_loader.svg)](https://pypi.python.org/pypi/elasticsearch-loader)
+# elasticsearch_loader [![Build Status](https://travis-ci.org/moshe/elasticsearch_loader.svg?branch=master)](https://travis-ci.org/moshe/elasticsearch_loader) [![Can I Use Python 3?](https://caniusepython3.com/project/elasticsearch-loader.svg)](https://caniusepython3.com/project/elasticsearch-loader) [![PyPI version](https://badge.fury.io/py/elasticsearch_loader.svg)](https://pypi.python.org/pypi/elasticsearch-loader)
 
 ## Main features
 
