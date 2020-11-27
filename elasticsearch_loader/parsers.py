@@ -13,3 +13,4 @@ if sys.version_info.major == 2:
     import unicodecsv as csv
 else:
     import csv
+    csv.field_size_limit(1000000000)
