@@ -35,6 +35,9 @@ def bulk_builder(bulk, config):
             body['doc'] = source
             del body['_source']
 
+        if config['pipeline']:
+            body['pipeline'] = config['pipeline']
+
         yield body
 
 

@@ -88,6 +88,7 @@ def log(sevirity, msg):
 @click.option('--timeout', type=float, help='Specify request timeout in seconds for Elasticsearch client', default=10)
 @click.option('--encoding', type=str, help='Specify content encoding for input files', default='utf-8')
 @click.option('--keys', type=str, help='Comma separated keys to pick from each document', default='', callback=lambda c, p, v: [x for x in v.split(',') if x])
+@click.option('--pipeline', type=str, help='Specify a pipeline to be applied for each document')
 @click.pass_context
 def cli(ctx, **opts):
     ctx.obj = opts
