@@ -22,7 +22,7 @@ setup(
     license='',
     long_description=long_description,
     description='A pythonic tool for batch loading data files (json, parquet, csv, tsv) into ElasticSearch',
-    install_requires=['elasticsearch>=6', 'click==7.1.1', 'click-stream==0.0.10', 'click-conf'] + extras,
+    install_requires=['elasticsearch>=6', 'click==8.0.1', 'click-stream==0.0.10', 'click-conf'] + extras,
     extras_require={
         'parquet': ['parquet'],
         'redis': ['esl-redis'],
