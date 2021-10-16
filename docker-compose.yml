@@ -8,7 +8,7 @@ services:
     build:
       context: .
       args:
-        python: python:${PYTHON}-alpine3.8
+        python: python:${PYTHON}-alpine3.14
     links:
       - elasticsearch
       - redis

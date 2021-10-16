@@ -4,10 +4,12 @@ before_install:
 language: python
 env:
   matrix:
-    - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:7.15.1
-    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:7.15.1
-    - PYTHON=3.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.8.20
-    - PYTHON=2.7 ES=docker.elastic.co/elasticsearch/elasticsearch:6.8.20
+    - PYTHON=3.10 ES=docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    - PYTHON=3.7  ES=docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    - PYTHON=2.7  ES=docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    - PYTHON=3.10 ES=docker.elastic.co/elasticsearch/elasticsearch:6.8.20
+    - PYTHON=3.7  ES=docker.elastic.co/elasticsearch/elasticsearch:6.8.20
+    - PYTHON=2.7  ES=docker.elastic.co/elasticsearch/elasticsearch:6.8.20
 script:
   - docker-compose --version
   - docker-compose up --build --abort-on-container-exit
