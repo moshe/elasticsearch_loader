@@ -21,10 +21,11 @@ In order to install plugin, simply run `pip install plugin-name`
 
 | python / es | 6.8.20 | 7.15.1 |
 | ----------- | ------ | ------ |
-| 2.7         | V      | V      |
+| 3.10        | V      | V      |
 | 3.7         | V      | V      |
 
-** ElasticSearch versions 2 and 5 droped in version 0.6.0 **
+** Support for ElasticSearch versions 2 and 5 dropped in version 0.6.0 **
+** Support for python version 2 dropped in version 0.6.0 **
 
 ### Installation
 
