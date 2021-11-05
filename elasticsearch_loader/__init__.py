@@ -25,7 +25,7 @@ def single_bulk_to_es(bulk, config, attempt_retry):
 
     for attempt in range(1, max_attempt + 1):
         try:
-            helpers.bulk(config['es_conn'], bulk, chunk_size=config['bulk_size'])
+            helpers.bulk(config['es_conn'], bulk, chunk_size=config['bulk_size'], raise_on_error=config['raise_on_error'])
         except Exception as e:
             if attempt < max_attempt:
                 wait_seconds = attempt * 3
@@ -89,6 +89,7 @@ def log(sevirity, msg):
 @click.option('--encoding', type=str, help='Specify content encoding for input files', default='utf-8')
 @click.option('--keys', type=str, help='Comma separated keys to pick from each document', default='', callback=lambda c, p, v: [x for x in v.split(',') if x])
 @click.option('--pipeline', type=str, help='Specify a pipeline to be applied for each document')
+@click.option('--raise-on-error', default=True, is_flag=True, help='Raise on any errors that might occur in bulk indexing the documents (default true)')
 @click.pass_context
 def cli(ctx, **opts):
     ctx.obj = opts
