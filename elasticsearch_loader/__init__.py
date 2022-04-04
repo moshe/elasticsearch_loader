@@ -93,7 +93,7 @@ def log(sevirity, msg):
 @click.pass_context
 def cli(ctx, **opts):
     ctx.obj = opts
-    es_opts = {x: y for x, y in opts.items() if x in ('timeout', 'use_ssl', 'ca_certs', 'verify_certs', 'http_auth')}
+    es_opts = {x: y for x, y in list(opts.items()) if x in ('timeout', 'use_ssl', 'ca_certs', 'verify_certs', 'http_auth')}
     ctx.obj['es_conn'] = Elasticsearch(opts['es_host'], **es_opts)
     if opts['delete']:
         try:
@@ -109,7 +109,7 @@ def cli(ctx, **opts):
             ctx.obj['es_conn'].indices.create(
                 index=opts['index'], body=json.load(opts['index_settings_file']))
     if ctx.invoked_subcommand is None:
-        commands = cli.commands.keys()
+        commands = list(cli.commands.keys())
         if ctx.default_map:
             default_command = ctx.default_map.get('default_command')
             if default_command:
