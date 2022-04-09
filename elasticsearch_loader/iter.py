@@ -1,7 +1,4 @@
-try:
-    from itertools import zip_longest as zip_longest
-except ImportError:
-    from itertools import zip_longest
+from itertools import zip_longest as zip_longest
 
 from .parsers import json
 
