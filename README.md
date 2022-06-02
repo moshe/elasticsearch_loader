@@ -19,10 +19,9 @@ In order to install plugin, simply run `pip install plugin-name`
 
 ### Test matrix
 
-| python / es | 5.6.16 | 6.8.0 | 7.1.1 |
-| ----------- | ----- | ----- | ----- |
-| 2.7         | V     | V     | V     |
-| 3.7         | V     | V     | V     |
+| python / es | 5.6.16 | 6.8.0 | 7.1.1 | 8.1.2 |
+| ----------- | ----- | ----- | ----- | ----- |
+| 3.7         | V     | V     | V     | V     |
 
 ### Installation
 

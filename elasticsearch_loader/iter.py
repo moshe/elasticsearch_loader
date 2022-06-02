@@ -1,7 +1,4 @@
-try:
-    from itertools import izip_longest as zip_longest
-except ImportError:
-    from itertools import zip_longest
+from itertools import zip_longest as zip_longest
 
 from .parsers import json
 
@@ -13,10 +10,10 @@ def grouper(iterable, n, fillvalue=None):
 
 
 def bulk_builder(bulk, config):
-    for item in filter(None, bulk):
+    for item in [_f for _f in bulk if _f]:
         source = item
         if config['keys']:
-            source = {x: y for x, y in item.items() if x in config['keys']}
+            source = {x: y for x, y in list(item.items()) if x in config['keys']}
 
         body = {'_index': config['index'],
                 '_type': config['type'],
