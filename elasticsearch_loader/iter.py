@@ -16,7 +16,7 @@ def bulk_builder(bulk, config):
             source = {x: y for x, y in list(item.items()) if x in config['keys']}
 
         body = {'_index': config['index'],
-                '_type': config['type'],
+                # '_type': config['type'], ~ type is now deprecated in Elasticsearch > 7
                 '_source': source}
 
         if config['id_field']:
